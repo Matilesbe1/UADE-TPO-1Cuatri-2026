@@ -1,11 +1,13 @@
 # FUNCIONES *branch lolo1*
 def mostrarMenuModif():
     '''Muestra las opciones del menú de modificaciones'''
+    print("-------------------")
     print("1: Nombre")
     print("2: Unidad de medida")
     print("3: Stock actual")
     print("4: Stock mínimo")
     print("5: Costo unitario")
+    print("-------------------")
 
 def modifNombre(index,nombres):
     '''Recibe el index del producto seleccionado y cambia su nombre por el elegido'''
@@ -69,10 +71,6 @@ def modifCosto(index,costo):
             print("Error. Ingresó un valor negativo o un valor que convierte al costo en 0.")
             cantResta = int(input("Ingrese la cantidad a restar. El valor final no puede terminar en 0"))
         costo[index] -= cantResta
-
-
-
-
 
 def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
