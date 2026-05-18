@@ -1,9 +1,10 @@
-""" 
-producto:
-codigo
-nombre
-unidad de medida
-stock actual
-stock minimo
-costo unitario
-"""
+codigo=[123]
+nombre=['hola']
+unida=['kg']
+stockA=[2]
+stockM=[1]
+costo=[500]
+
+import funciones
+def main():
+    funciones.ValidarProducto()
