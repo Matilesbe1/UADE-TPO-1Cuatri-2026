@@ -1,6 +1,6 @@
 codigo=[123]
 nombre=['hola']
-unida=['kg', 'lt', 'mts']
+unida=['kg', 'lt', 'm']
 stockA=[2]
 stockM=[1]
 costo=[500]
