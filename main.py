@@ -7,4 +7,5 @@ costo=[500]
 
 import funciones
 def main():
-    funciones.ValidarProducto()
+    funciones.altaDeProducto()
+main()

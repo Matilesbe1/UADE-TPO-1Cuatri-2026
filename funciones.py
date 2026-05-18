@@ -12,10 +12,13 @@ def ValidarProducto(codigo, nombre, unidad, stockActual, stockMinimo, costo):
         print('el costo unitario es invalido')
     return 
 
-def modificarProducto(lst):
-    print("hola")
-
-def bajaProductos(lst):
-    print("hola")
-
-print("HOla Mundo")
+def altaDeProducto():
+    codigo=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ') #ARREGLAR ESTO 
+    for i in range (len(codigo)):
+        if codigo[i].isalpha():
+            print('letra')
+        elif codigo[i].isdigit():
+            print('numero')
+        else:
+            print('error')
+    
