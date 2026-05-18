@@ -9,3 +9,11 @@ def ValidarProducto(codigo, nombre, unidad, stockActual, stockMinimo, costo):
     if costo<=0:
         print('el costo unitario es invalido')
     return 
+
+def modificarProducto(lst):
+    print("hola")
+
+def bajaProductos(lst):
+    print("hola")
+
+print("HOla Mundo")
