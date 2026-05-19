@@ -1,4 +1,6 @@
 # FUNCIONES *branch lolo1*
+# ------------------------------------------------------------------------------------------------------
+# FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif():
     '''Muestra las opciones del menú de modificaciones'''
     print("-------------------")
@@ -94,9 +96,38 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
         modifUnidad(indexCodigoInput, unidad)
     elif op == 3:
         tipoStock = "actual"
-        modifStock(indexCodigoInput, stockActual,tipoStock)
+        modifStock(indexCodigoInput, stockActual, stockMinimo, tipoStock)
     elif op == 4:
         tipoStock = "minimo"
-        modifStock(indexCodigoInput, stockActual, stockMinimo , tipoStock)
+        modifStock(indexCodigoInput, stockActual, stockMinimo, tipoStock)
     else:
         modifCosto(indexCodigoInput, costo)
+
+# ------------------------------------------------------------------------------------------------------
+
+#FUNCIONES BAJA DE PRODCUTO
+def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
+    codigoInput = int(input("Ingrese el código del producto que quiere dar de baja: "))
+    indexCodigoInput = 0
+    while codigoInput not in codigos:
+        print("No se encontró el código seleccionado. Intente nuevamente.")
+        codigoInput = int(input("Ingrese el código del producto que quiere dar de baja: "))
+    for i in range(len(codigos)):
+        if codigos[i] == codigoInput:
+            indexCodigoInput = i
+    print("Producto encontrado")
+    print(codigos[indexCodigoInput],nombres[indexCodigoInput],unidades[indexCodigoInput],stockActual[indexCodigoInput],stockMinimo[indexCodigoInput],costos[indexCodigoInput])
+    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
+    while op != "Y" and op != "N":
+        print("Error. Ingresó una respuesta inválida. Responda con Y (si lo desea) o N (si no lo desea)")
+        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
+    if op == "N":
+        print("Ha seleccionado NO, por lo tanto el producto no fue dado de baja.")
+    else:
+        codigos.pop(indexCodigoInput)
+        nombres.pop(indexCodigoInput)
+        unidades.pop(indexCodigoInput)
+        stockActual.pop(indexCodigoInput)
+        stockMinimo.pop(indexCodigoInput)
+        costos.pop(indexCodigoInput)
+        print("Ha seleccionado SI, por lo tanto el producto fue dado de baja.")
