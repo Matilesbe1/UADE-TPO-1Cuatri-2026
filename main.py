@@ -1,11 +1,11 @@
-codigo=[123]
-nombre=['hola']
-unida=['kg', 'lt', 'm']
-stockA=[2]
-stockM=[1]
-costo=[500]
-
 import funciones
 def main():
-    funciones.altaDeProducto()
+    codigo=['abc1234']
+    nombre=['hola']
+    unidad=['kg']
+    stockA=[2]
+    stockM=[1]
+    costo=[500]
+    funciones.altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo)
+    funciones.mostrarListado(codigo, nombre, unidad, stockA, stockM, costo)
 main()
