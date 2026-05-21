@@ -9,7 +9,8 @@ stockM=[5,10,1,2]
 costo=[100,50,500,250]
 
 def main():
+    funciones.altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     funciones.modificarProducto(codigo,nombre,unidad,stockA,stockM,costo)
-    for i in range(len(codigo)):
-        print(codigo[i],nombre[i],unidad[i],stockA[i],stockM[i],costo[i])
+    funciones.mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
+    funciones.bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
 main()

@@ -1,15 +1,14 @@
-# FUNCIONES *branch lolo1*
 # ------------------------------------------------------------------------------------------------------
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif():
     '''Muestra las opciones del menú de modificaciones'''
-    print("-------------------")
+    print("-"*80)
     print("1: Nombre")
     print("2: Unidad de medida")
     print("3: Stock actual")
     print("4: Stock mínimo")
     print("5: Costo unitario")
-    print("-------------------")
+    print("-"*80)
 
 def modifNombre(index,nombres):
     '''Recibe el index del producto seleccionado y cambia su nombre por el elegido'''
@@ -103,8 +102,6 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
     else:
         modifCosto(indexCodigoInput, costo)
 
-# ------------------------------------------------------------------------------------------------------
-
 #FUNCIONES BAJA DE PRODCUTO
 def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
     codigoInput = int(input("Ingrese el código del producto que quiere dar de baja: "))
@@ -131,7 +128,10 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
         stockMinimo.pop(indexCodigoInput)
         costos.pop(indexCodigoInput)
         print("Ha seleccionado SI, por lo tanto el producto fue dado de baja.")
+
+#FUNCIONES ALTA DE PRODUCTO
 def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
+    '''Recibe los nuevos datos que se quieren ingresar, los valida y los agrega a las listas'''
     codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
     while len(codigoN)!=7:
         codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ') 
@@ -145,11 +145,10 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
     while len(nombreN)==0:
         nombreN=input('ERROR: escriba el nombre del nuevo producto: ')
     nombre.append(nombreN)
-    unidadN=input('escriba la unidad de medida del producto (kg, lt, mts): ')
-    while unidadN!= 'kg' and unidadN!= 'lt' and  unidadN!= 'mts':
-        unidadN=input('ERROR: escriba una unidad de medida valida (kg, lt, mts): ')
+    unidadN=input('escriba la unidad de medida del producto (kilos, litros, metros, unidades): ')
+    while unidadN!= 'kilos' and unidadN!= 'litros' and  unidadN!= 'metros' and unidad!='unidades':
+        unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros): ')
     unidad.append(unidadN)
-
     stockAN=int(input('escriba el stock actual del producto: '))
     while stockAN<=0:
         stockAN=int(input('ERROR: escriba un stock valido: '))
@@ -160,13 +159,14 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
     if stockMN>stockAN:
         stockMN=int(input('ERROR: el stock minimo no puede ser mayor que el stock actual, intente otra vez:  '))
     stockM.append(stockMN)
-
     costoN=int(input('escriba el costo unitario del producto: '))
     while costoN<=0:
         costoN=int(input('ERROR: escriba un costo por unidad valido: '))
     costo.append(costoN)
 
+#FUNCIONES MOSTRAR LISTADO
 def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo):
+    """ Muestra el listado de productos con sus respectivos datos, organizadamente """
     print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
     print("-" * 80)
     for i in range (len(codigo)):
