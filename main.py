@@ -1,16 +1,13 @@
 #Programa principal
 import funciones 
 
-codigo=[111,222,333,444]
+codigo=['abc1111','abc2222','abc3333','abc4444']
 nombre=["azucar","cinta","moto","cerveza"]
-unidad=['kg',"mts", "u","lts"]
+unidad=['kilos',"metros", "unidades","litros"]
 stockA=[50,100,5,25]
 stockM=[5,10,1,2]
 costo=[100,50,500,250]
 
 def main():
-    funciones.altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
-    funciones.modificarProducto(codigo,nombre,unidad,stockA,stockM,costo)
-    funciones.mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
-    funciones.bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
+    funciones.mostrarOpciones(codigo,nombre,unidad,stockA,stockM,costo)
 main()

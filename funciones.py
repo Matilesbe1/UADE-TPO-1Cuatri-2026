@@ -1,3 +1,27 @@
+def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
+    '''Muestra las opciones del menú principal'''
+    print("-"*80)
+    print("1: Alta de producto")
+    print("2: Modificar producto")
+    print("3: Baja de producto")
+    print("4: Listado de productos")
+    print("5: Salir")
+    print("-"*80)
+    opcion=int(input("Ingrese una opcion: "))
+    while opcion < 1 or opcion > 5:
+        print("Error. Elija una opció valida.")
+        opcion=int(input("Ingrese una opcion: "))
+    if opcion == 1:
+        altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 2:
+        modificarProducto(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 3:
+        bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 4:
+        mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 5:
+        print("Gracias por usar el programa.")
+
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif():
     '''Muestra las opciones del menú de modificaciones'''
@@ -103,21 +127,21 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
 
 #FUNCIONES BAJA DE PRODCUTO
 def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
-    codigoInput = int(input("Ingrese el código del producto que quiere dar de baja: "))
+    codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     indexCodigoInput = 0
     while codigoInput not in codigos:
         print("No se encontró el código seleccionado. Intente nuevamente.")
-        codigoInput = int(input("Ingrese el código del producto que quiere dar de baja: "))
+        codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     for i in range(len(codigos)):
         if codigos[i] == codigoInput:
             indexCodigoInput = i
     print("Producto encontrado")
     print(codigos[indexCodigoInput],nombres[indexCodigoInput],unidades[indexCodigoInput],stockActual[indexCodigoInput],stockMinimo[indexCodigoInput],costos[indexCodigoInput])
     op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
-    while op != "Y" and op != "N":
+    while op != "y" and op != "n":
         print("Error. Ingresó una respuesta inválida. Responda con Y (si lo desea) o N (si no lo desea)")
         op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
-    if op == "N":
+    if op == "n":
         print("Ha seleccionado NO, por lo tanto el producto no fue dado de baja.")
     else:
         codigos.pop(indexCodigoInput)
@@ -131,33 +155,53 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
 #FUNCIONES ALTA DE PRODUCTO
 def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
     '''Recibe los nuevos datos que se quieren ingresar, los valida y los agrega a las listas'''
+
+    #RECIBE EL NUEVO CODIGO
     codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
+    for i in range (len(codigo)):
+        while codigoN==codigo[i]:
+            print('ERROR: el codigo ya existe')
+            codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
     while len(codigoN)!=7:
-        codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ') 
+        codigoN=input('ERROR: intente otra vez (no cumple con los requisitos): ') 
     if len(codigoN)==7:
         while not codigoN[:3].isalpha():
             codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ')
         while not codigoN[3:].isnumeric():
             codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ') 
         codigo.append(codigoN)
+
+    #RECIBE EL NUEVO NOMBRE
     nombreN=input('escriba el nombre del nuevo producto: ')
+    for i in range (len(nombre)):
+        while nombreN==nombre[i]:
+            print('ERROR: ya hay un producto con ese nombre. ')
+            nombreN=input('escriba el nombre del nuevo producto: ')
     while len(nombreN)==0:
         nombreN=input('ERROR: escriba el nombre del nuevo producto: ')
     nombre.append(nombreN)
+
+    #RECIBE LA NUEVA UNIDAD
     unidadN=input('escriba la unidad de medida del producto (kilos, litros, metros, unidades): ')
     while unidadN!= 'kilos' and unidadN!= 'litros' and  unidadN!= 'metros' and unidad!='unidades':
-        unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros): ')
+        unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros, unidades): ')
     unidad.append(unidadN)
+
+    #RECIBE EL NUEVO STOCK
     stockAN=int(input('escriba el stock actual del producto: '))
     while stockAN<=0:
         stockAN=int(input('ERROR: escriba un stock valido: '))
     stockA.append(stockAN)
+
+    #RECIBE EL STOCK MINIMO
     stockMN=int(input('escriba el stock minimo requerido para el producto: '))
     while stockMN<=0:
         stockMN=int(input('ERROR: escriba un stock minimo valido: '))
     if stockMN>stockAN:
         stockMN=int(input('ERROR: el stock minimo no puede ser mayor que el stock actual, intente otra vez:  '))
     stockM.append(stockMN)
+
+    #RECIBE EL COSTO
     costoN=int(input('escriba el costo unitario del producto: '))
     while costoN<=0:
         costoN=int(input('ERROR: escriba un costo por unidad valido: '))
