@@ -1,5 +1,5 @@
 #Programa principal
-import funciones #form branch lolo1
+import funciones 
 
 codigo=[111,222,333,444]
 nombre=["azucar","cinta","moto","cerveza"]

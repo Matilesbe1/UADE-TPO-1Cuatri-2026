@@ -1,4 +1,3 @@
-# ------------------------------------------------------------------------------------------------------
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif():
     '''Muestra las opciones del menú de modificaciones'''
@@ -166,7 +165,7 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
 
 #FUNCIONES MOSTRAR LISTADO
 def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo):
-    """ Muestra el listado de productos con sus respectivos datos, organizadamente """
+    """ Muestra el listado de productos con sus respectivos datos """
     print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
     print("-" * 80)
     for i in range (len(codigo)):
