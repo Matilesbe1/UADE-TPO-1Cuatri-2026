@@ -7,10 +7,10 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
     print("4: Listado de productos")
     print("5: Salir")
     print("-"*80)
-    opcion=int(input("Ingrese una opcion: "))
+    opcion=int(input("Ingrese una opcion (-1 para finalizar): "))
     while opcion < 1 or opcion > 5:
         print("Error. Elija una opció valida.")
-        opcion=int(input("Ingrese una opcion: "))
+        opcion=int(input("Ingrese una opcion (-1 para finalizar): "))
     if opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
@@ -19,8 +19,10 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
         bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 4:
         mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
+        return opcion
     elif opcion == 5:
         print("Gracias por usar el programa.")
+        return opcion
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif():
@@ -39,6 +41,7 @@ def modifNombre(index,nombres):
     while nombres[index] == " " or nombres[index] == "":
         print("El nombre no puede quedar vacío")
         nombres[index] = input("Ingrese el nuevo nombre: ")
+        print('nombre modificado')
 
 def modifUnidad(index,unidad):
     '''Recibe el index del producto seleccionado y cambia su unidad de medida por la elegido'''
@@ -47,6 +50,7 @@ def modifUnidad(index,unidad):
     while unidad[index] not in unidadesValidas:
         print("Error. Ingrese una unidad válida: kilos, litros, metros o unidades.")
         unidad[index] = input("Ingrese la nueva unidad de medida: ")
+        print('unidad modificada')
 
 def modifStock(index, stockA, stockM, tipoStock):
     '''Recibe el index del producto seleccionado y dependendiendo del valor de "tipoStock", que fue precargado anteriormente,
@@ -76,6 +80,7 @@ def modifStock(index, stockA, stockM, tipoStock):
                 print(f"Error. Ingresó un valor negativo o un valor mayor al stock {tipoStock}.")
                 cantResta = int(input("Ingrese al cantidad a restar. El stock no puede quedar negativo"))
             stockM[index] -= cantResta
+    print('stock modificado')
 
 def modifCosto(index,costo):
     '''Recibe el producto elegido y la lista de costos. Realiza las operaciones de suma o resta correspondientes validando que el vallor final no sea 0.'''
@@ -95,14 +100,15 @@ def modifCosto(index,costo):
             print("Error. Ingresó un valor negativo o un valor que convierte al costo en 0.")
             cantResta = int(input("Ingrese la cantidad a restar. El valor final no puede terminar en 0"))
         costo[index] -= cantResta
+    print('costo modificado')
 
 def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
-    codigoInput = int(input("Ingrese el código del producto a modificar: "))
+    codigoInput = (input("Ingrese el código del producto a modificar: "))
     indexCodigoInput = 0
     while codigoInput not in codigos:
         print("No se encontró el código seleccionado. Intente nuevamente.")
-        codigoInput = int(input("Ingrese el código del producto a modificar: "))
+        codigoInput = (input("Ingrese el código del producto a modificar: "))
     for i in range(len(codigos)):
         if codigos[i] == codigoInput:
             indexCodigoInput = i
@@ -206,6 +212,8 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
     while costoN<=0:
         costoN=int(input('ERROR: escriba un costo por unidad valido: '))
     costo.append(costoN)
+
+    print('producto dado de alta')
 
 #FUNCIONES MOSTRAR LISTADO
 def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo):
