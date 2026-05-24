@@ -10,6 +10,6 @@ costo=[100,50,500,250]
 
 def main():
     op =funciones.mostrarOpciones(codigo,nombre,unidad,stockA,stockM,costo)
-    while op!=-1:
+    while op!=5:
         op = funciones.mostrarOpciones(codigo,nombre,unidad,stockA,stockM,costo)
 main()

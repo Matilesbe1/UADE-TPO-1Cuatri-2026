@@ -1,4 +1,4 @@
-def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
+def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     '''Muestra las opciones del menú principal'''
     print("-"*80)
     print("1: Alta de producto")
@@ -7,10 +7,10 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
     print("4: Listado de productos")
     print("5: Salir")
     print("-"*80)
-    opcion=int(input("Ingrese una opcion (-1 para finalizar): "))
+    opcion=int(input("Ingrese una opcion (5 para finalizar): "))
     while opcion < 1 or opcion > 5:
         print("Error. Elija una opció valida.")
-        opcion=int(input("Ingrese una opcion (-1 para finalizar): "))
+        opcion=int(input("Ingrese una opcion (5 para finalizar): "))
     if opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
@@ -19,13 +19,12 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo):
         bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 4:
         mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
-        return opcion
     elif opcion == 5:
         print("Gracias por usar el programa.")
-        return opcion
+        return 5
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
-def mostrarMenuModif():
+def mostrarMenuModif(): #Lorenzo Rossi
     '''Muestra las opciones del menú de modificaciones'''
     print("-"*80)
     print("1: Nombre")
@@ -35,7 +34,7 @@ def mostrarMenuModif():
     print("5: Costo unitario")
     print("-"*80)
 
-def modifNombre(index,nombres):
+def modifNombre(index,nombres): #Lorenzo Rossi
     '''Recibe el index del producto seleccionado y cambia su nombre por el elegido'''
     nombres[index] = input("Ingrese el nuevo nombre: ")
     while nombres[index] == " " or nombres[index] == "":
@@ -43,7 +42,7 @@ def modifNombre(index,nombres):
         nombres[index] = input("Ingrese el nuevo nombre: ")
         print('nombre modificado')
 
-def modifUnidad(index,unidad):
+def modifUnidad(index,unidad): #Lorenzo Rossi
     '''Recibe el index del producto seleccionado y cambia su unidad de medida por la elegido'''
     unidadesValidas = ["kilos", "unidades", "litros", "metros"]
     unidad[index] = input("Ingrese la nueva unidad de medida (unidades, kilos, litros, metros): ")
@@ -52,7 +51,7 @@ def modifUnidad(index,unidad):
         unidad[index] = input("Ingrese la nueva unidad de medida: ")
         print('unidad modificada')
 
-def modifStock(index, stockA, stockM, tipoStock):
+def modifStock(index, stockA, stockM, tipoStock): #Lorenzo Rossi
     '''Recibe el index del producto seleccionado y dependendiendo del valor de "tipoStock", que fue precargado anteriormente,
         da a elegir si sumar o restar stock en el minimo o en el actual. Siempre validando que el valor final no sea negativo.'''
     op = int(input(f"Desea sumar (1) o restar (2) stock al {tipoStock}: "))
@@ -82,7 +81,7 @@ def modifStock(index, stockA, stockM, tipoStock):
             stockM[index] -= cantResta
     print('stock modificado')
 
-def modifCosto(index,costo):
+def modifCosto(index,costo): #Lorenzo Rossi
     '''Recibe el producto elegido y la lista de costos. Realiza las operaciones de suma o resta correspondientes validando que el vallor final no sea 0.'''
     op = int(input("Desea incrementar (1) el costo unitario o decrementarlo (2)?: "))
     while op < 1 or op > 2:
@@ -102,7 +101,7 @@ def modifCosto(index,costo):
         costo[index] -= cantResta
     print('costo modificado')
 
-def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
+def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lorenzo Rossi
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
     codigoInput = (input("Ingrese el código del producto a modificar: "))
     indexCodigoInput = 0
@@ -132,7 +131,7 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo):
         modifCosto(indexCodigoInput, costo)
 
 #FUNCIONES BAJA DE PRODCUTO
-def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
+def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lorenzo Rossi
     codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     indexCodigoInput = 0
     while codigoInput not in codigos:
@@ -159,7 +158,7 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos):
         print("Ha seleccionado SI, por lo tanto el producto fue dado de baja.")
 
 #FUNCIONES ALTA DE PRODUCTO
-def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
+def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     '''Recibe los nuevos datos que se quieren ingresar, los valida y los agrega a las listas'''
 
     #RECIBE EL NUEVO CODIGO
@@ -216,7 +215,7 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo):
     print('producto dado de alta')
 
 #FUNCIONES MOSTRAR LISTADO
-def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo):
+def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     """ Muestra el listado de productos con sus respectivos datos """
     print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
     print("-" * 80)
