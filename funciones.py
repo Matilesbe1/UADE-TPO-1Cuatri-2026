@@ -103,11 +103,11 @@ def modifCosto(index,costo): #Lorenzo Rossi
 
 def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lorenzo Rossi
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
-    codigoInput = (input("Ingrese el código del producto a modificar: "))
+    codigoInput = input("Ingrese el código del producto a modificar: ")
     indexCodigoInput = 0
     while codigoInput not in codigos:
         print("No se encontró el código seleccionado. Intente nuevamente.")
-        codigoInput = (input("Ingrese el código del producto a modificar: "))
+        codigoInput = input("Ingrese el código del producto a modificar: ")
     for i in range(len(codigos)):
         if codigos[i] == codigoInput:
             indexCodigoInput = i
@@ -142,10 +142,10 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lore
             indexCodigoInput = i
     print("Producto encontrado")
     print(codigos[indexCodigoInput],nombres[indexCodigoInput],unidades[indexCodigoInput],stockActual[indexCodigoInput],stockMinimo[indexCodigoInput],costos[indexCodigoInput])
-    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
+    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ")
     while op != "y" and op != "n":
-        print("Error. Ingresó una respuesta inválida. Responda con Y (si lo desea) o N (si no lo desea)")
-        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (Y/N)?: ")
+        print("Error. Ingresó una respuesta inválida. Responda con y (si lo desea) o n (si no lo desea)")
+        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ")
     if op == "n":
         print("Ha seleccionado NO, por lo tanto el producto no fue dado de baja.")
     else:
