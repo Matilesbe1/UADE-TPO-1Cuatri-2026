@@ -5,12 +5,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("2: Modificar producto")
     print("3: Baja de producto")
     print("4: Listado de productos")
-    print("5: Salir")
+    print("5: Buscar producto por codigo")
+    print("6: Lista ordenada por Stock")
+    print("7: Reporte por unidad de medida")
+    print("8: Salir")
     print("-"*80)
-    opcion=int(input("Ingrese una opcion (5 para finalizar): "))
-    while opcion < 1 or opcion > 5:
-        print("Error. Elija una opció valida.")
-        opcion=int(input("Ingrese una opcion (5 para finalizar): "))
+    opcion=int(input("Ingrese una opcion (8 para finalizar): "))
+    while opcion < 1 or opcion > 8:
+        print("Error. Elija una opcion valida.")
+        opcion=int(input("Ingrese una opcion (8 para finalizar): "))
     if opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
@@ -20,8 +23,16 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     elif opcion == 4:
         mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 5:
+        buscarProductoXCodigo(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion== 6:
+        ordenarStockActual(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 7:
+        filtrarMedida(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 8:
         print("Gracias por usar el programa.")
-        return 5
+        return 8
+
+
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): #Lorenzo Rossi
@@ -221,3 +232,22 @@ def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     print("-" * 80)
     for i in range (len(codigo)):
         print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+
+def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo):
+    buscado=input('ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+    encontrado=False
+    while buscado!='-1' and encontrado==False:
+        for i in range (len(codigo)):
+            if codigo[i]==buscado:
+                encontrado=True
+        if encontrado==True:
+            print('el producto existe.')
+            print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
+            print("-" * 80)
+            print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+        else:
+            print('el producto no fue encontrado')
+        buscado=input('ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+    return 
+
+
