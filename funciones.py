@@ -221,3 +221,45 @@ def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     print("-" * 80)
     for i in range (len(codigo)):
         print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+
+
+#FUNCION ORDENAMIENTO DE STOCK ACTUAL, DE MENOR A MAYOR
+def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
+    '''Ordena la lista stockA de menor a mayor. También sus listas relacionadas.
+        Se utiliza el método de ordenamiento por selección.'''
+    for i in range(0,len(stockA)-1):
+        index_min = i
+        for j in range(i+1,len(stockA)):
+            if stockA[index_min] > stockA[j]:
+                index_min = j
+        #intercambio stock actual
+        aux = stockA[i]
+        stockA[i] = stockA[index_min]
+        stockA[index_min] = aux
+
+        #intercambio codigo
+        aux = codigo[i]
+        codigo[i] = codigo[index_min]
+        codigo[index_min] = aux
+
+        #intercambio nombre
+        aux = nombre[i]
+        nombre[i] = nombre[index_min]
+        nombre[index_min] = aux
+
+        #intercambio unidad
+        aux = unidad[i]
+        unidad[i] = unidad[index_min]
+        unidad[index_min] = aux
+
+        #intercambio stock minimo
+        aux = stockM[i]
+        stockM[i] =stockM[index_min]
+        stockM[index_min] = aux
+
+        #intercambio costo
+        aux = costo[i]
+        costo[i] = costo[index_min]
+        costo[index_min] = aux
+
+    mostrarListado(codigo, nombre, unidad, stockA, stockM, costo)
