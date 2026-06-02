@@ -5,10 +5,11 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("2: Modificar producto")
     print("3: Baja de producto")
     print("4: Listado de productos")
+    print("7: Reportar productos por unidad de medida")
     print("5: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (5 para finalizar): "))
-    while opcion < 1 or opcion > 5:
+    while opcion < 1 or opcion > 8:
         print("Error. Elija una opció valida.")
         opcion=int(input("Ingrese una opcion (5 para finalizar): "))
     if opcion == 1:
@@ -22,6 +23,8 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     elif opcion == 5:
         print("Gracias por usar el programa.")
         return 5
+    elif opcion == 7:
+        filtrarMedida(codigo,nombre,unidad,stockA,stockM,costo)
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): #Lorenzo Rossi
@@ -217,7 +220,55 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
 #FUNCIONES MOSTRAR LISTADO
 def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     """ Muestra el listado de productos con sus respectivos datos """
-    print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
+    print(f'{"Codigo":<10} | {"Nombre":<10} | {"Unidad":<10} | {"Stock Actual":<10} | {"Stock minimo":<10} | {"Costo":<10}')
     print("-" * 80)
     for i in range (len(codigo)):
         print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+
+# FUNCIÓN FILTRADO POR UNIDAD DE MEDIDA
+def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera
+    '''Permite elegir una unidad de medida y muestra los productos que la usan'''
+
+    # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
+    def listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
+        '''Recorre la lista e imprime los productos que coinciden con la medida elegida'''
+
+        encontrados = 0 
+        for i in range (len(unidad)):
+            if unidad[i] == busqueda:
+                print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+                encontrados += 1
+
+        # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
+        if encontrados == 0:
+            print(f"No se encontraron productos con la unidad de medida: {busqueda}")
+            
+    # MUESTRA EL MENÚ Y PIDE LA OPCIÓN
+    print ("¿Que unidad de medida desea mostrar?: ")
+    print ("1 | Kilos")
+    print ("2 | Litros")
+    print ("3 | Unidades")
+    print ("4 | Metros")
+    opcion=int(input("Ingrese una opción: "))
+
+    # VALIDO LA OPCIÓN
+    while opcion < 1 or opcion > 4:
+        print("Error. Elija una opción valida.")
+        print ("1 | Kilos")
+        print ("2 | Litros")
+        print ("3 | Unidades")
+        print ("4 | Metros")
+        opcion=int(input("Ingrese una opción: "))
+    
+    # GUARDA LA PALABRA SEGÚN LA OPCIÓN ELEGIDA
+    if opcion == 1:
+        busqueda = "kilos"
+    elif opcion == 2:
+        busqueda = "litros"
+    elif opcion == 3:
+        busqueda = "unidades"
+    else:
+        busqueda = "metros"
+
+    #LLAMO A LA FUNCIÓN PARA LISTAR LOS PRODUCTOS
+    listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
