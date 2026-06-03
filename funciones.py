@@ -174,18 +174,14 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
 
     #RECIBE EL NUEVO CODIGO
     codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
-    for i in range (len(codigo)):
-        while codigoN==codigo[i]:
-            print('ERROR: el codigo ya existe')
-            codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
-    while len(codigoN)!=7:
-        codigoN=input('ERROR: intente otra vez (no cumple con los requisitos): ') 
-    if len(codigoN)==7:
-        while not codigoN[:3].isalpha():
-            codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ')
-        while not codigoN[3:].isnumeric():
-            codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ') 
-        codigo.append(codigoN)
+    while not codigoN[:3].isalpha() or not codigoN[3:].isnumeric() or len(codigoN)!=7:
+        for i in range (len(codigo)):
+            while codigoN==codigo[i] or not codigoN[:3].isalpha() or not codigoN[3:].isnumeric() or len(codigoN)!=7:
+                print('ERROR: el codigo ya existe o no cumple con los requisitos. ')
+                codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
+        codigoN=input('ERROR: intente otra vez (no cumple con los requisitos): ')
+    codigo.append(codigoN)
+    
 
     #RECIBE EL NUEVO NOMBRE
     nombreN=input('escriba el nombre del nuevo producto: ')
@@ -199,7 +195,7 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
 
     #RECIBE LA NUEVA UNIDAD
     unidadN=input('escriba la unidad de medida del producto (kilos, litros, metros, unidades): ')
-    while unidadN!= 'kilos' and unidadN!= 'litros' and  unidadN!= 'metros' and unidad!='unidades':
+    while unidadN.lower()!= 'kilos' and unidadN.lower()!= 'litros' and  unidadN.lower()!= 'metros' and unidadN.lower()!='unidades':
         unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros, unidades): ')
     unidad.append(unidadN)
 
