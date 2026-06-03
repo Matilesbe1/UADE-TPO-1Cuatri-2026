@@ -8,12 +8,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("5: Buscar producto por codigo")
     print("6: Lista ordenada por Stock")
     print("7: Reporte por unidad de medida")
-    print("8: Salir")
+    print("8: Orden de productos descendente")
+    print("9: Stock Critico")
+    print("10: Contador de productos por unidad de medida")
+    print("0: Salir")
     print("-"*80)
-    opcion=int(input("Ingrese una opcion (8 para finalizar): "))
-    while opcion < 1 or opcion > 8:
+    opcion=int(input("Ingrese una opcion (0 para finalizar): "))
+    while opcion < 0 or opcion > 10:
         print("Error. Elija una opcion valida.")
-        opcion=int(input("Ingrese una opcion (8 para finalizar): "))
+        opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     if opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
@@ -22,9 +25,10 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
         bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 4:
         mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion == 0:
-        print("Gracias por usar el programa.")
-        return 0
+    elif opcion == 5:
+        buscarProductoXCodigo(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion== 6:
+        ordenarStockActual(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 7:
         filtrarMedida(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 8:
@@ -33,17 +37,9 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
         stockCritico(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 10:
         contadorMedida(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion == 5:
-        buscarProductoXCodigo(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion== 6:
-        ordenarStockActual(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion == 7:
-        filtrarMedida(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion == 8:
-        print("Gracias por usar el programa.")
-        return 8
-
-
+    elif opcion ==0:
+        print("Gracias por usar el programa")
+        return 0
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): #Lorenzo Rossi
@@ -444,7 +440,8 @@ def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
         costo[index_min] = aux
 
     mostrarListado(codigo, nombre, unidad, stockA, stockM, costo)
-def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo):
+
+def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     buscado=input('ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     encontrado=False
     while buscado!='-1' and encontrado==False:
