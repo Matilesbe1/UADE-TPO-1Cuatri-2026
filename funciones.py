@@ -128,7 +128,7 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lo
     op = int(input("Producto encontrado. ¿Qué desea modificar?: "))
     while op < 1 or op > 5:
         print("Error. Elija entre las opciones establecidas (1-5)")
-        op = input("¿Qué desea modificar?: ")
+        op = int(input("¿Qué desea modificar?: "))
     if op == 1:
         modifNombre(indexCodigoInput,nombres)
     elif op == 2:
@@ -174,19 +174,30 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     '''Recibe los nuevos datos que se quieren ingresar, los valida y los agrega a las listas'''
 
     #RECIBE EL NUEVO CODIGO
-    codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
-    for i in range (len(codigo)):
-        while codigoN==codigo[i]:
-            print('ERROR: el codigo ya existe')
-            codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
-    while len(codigoN)!=7:
-        codigoN=input('ERROR: intente otra vez (no cumple con los requisitos): ') 
-    if len(codigoN)==7:
-        while not codigoN[:3].isalpha():
-            codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ')
-        while not codigoN[3:].isnumeric():
-            codigoN=input('ERROR: intente otra vez (no cumple con os requisitos): ') 
-        codigo.append(codigoN)
+    codigoN=input('Escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
+
+    #CONTADOR DE REPETIDOS EN 1 PARA OBLIGAR A ENTRAR EN BUCLE
+    repetidos = 1
+
+    #CICLO DE VALIDACION DE CODIGO
+    while (repetidos > 0) or (len(codigoN) != 7) or (not codigoN[:3].isalpha()) or (not codigoN[3:].isnumeric()):
+
+        #PONEMOS VARIABLE EN 0 PARA OBLIGAR A BUSCAR POR CADA PASAJE EN LA LISTA
+        repetidos = 0
+
+        #BUSCAMOS SI EL NUEVO CODIGO YA ESTA EN NUESTRA LISTA
+        for i in range(len(codigo)):
+            if codigoN == codigo[i]:
+                repetidos += 1
+
+        #MOSTRAMOS EL MENSAJE DE ERROR EN CASO DE SER NECESARIO
+        if (repetidos > 0) or (len(codigoN) != 7) or (not codigoN[:3].isalpha()) or (not codigoN[3:].isnumeric()):
+            print('ERROR: El código ya existe o no cumple con el formato de 3 letras y 4 números.')
+            codigoN = input('Intente otra vez: ')
+
+    #GUARDA EL CODIGO VALIDADO
+    codigo.append(codigoN)
+
 
     #RECIBE EL NUEVO NOMBRE
     nombreN=input('escriba el nombre del nuevo producto: ')
@@ -200,7 +211,7 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
 
     #RECIBE LA NUEVA UNIDAD
     unidadN=input('escriba la unidad de medida del producto (kilos, litros, metros, unidades): ')
-    while unidadN!= 'kilos' and unidadN!= 'litros' and  unidadN!= 'metros' and unidad!='unidades':
+    while unidadN!= 'kilos' and unidadN!= 'litros' and  unidadN!= 'metros' and unidadN!='unidades':
         unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros, unidades): ')
     unidad.append(unidadN)
 
