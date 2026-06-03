@@ -6,12 +6,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("3: Baja de producto")
     print("4: Listado de productos")
     print("7: Reportar productos por unidad de medida")
-    print("5: Salir")
+    print("8: Listar los productos de mayor a menor costo")
+    print("9: Stock en estad critico")
+    print("10: Contar productos por unidad de medida")
+    print("0: Salir")
     print("-"*80)
-    opcion=int(input("Ingrese una opcion (5 para finalizar): "))
-    while opcion < 1 or opcion > 8:
+    opcion=int(input("Ingrese una opcion (0 para finalizar): "))
+    while opcion < 0 or opcion > 11:
         print("Error. Elija una opció valida.")
-        opcion=int(input("Ingrese una opcion (5 para finalizar): "))
+        opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     if opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
@@ -20,11 +23,17 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
         bajaProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 4:
         mostrarListado(codigo,nombre,unidad,stockA,stockM,costo)
-    elif opcion == 5:
+    elif opcion == 0:
         print("Gracias por usar el programa.")
-        return 5
+        return 0
     elif opcion == 7:
         filtrarMedida(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 8:
+        ordenDescendente(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 9:
+        stockCritico(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion == 10:
+        contadorMedida(codigo,nombre,unidad,stockA,stockM,costo)
 
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): #Lorenzo Rossi
@@ -234,10 +243,12 @@ def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguiler
         '''Recorre la lista e imprime los productos que coinciden con la medida elegida'''
 
         encontrados = 0 
+        print("=" * 76)
         for i in range (len(unidad)):
             if unidad[i] == busqueda:
                 print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
                 encontrados += 1
+        print("=" * 76)
 
         # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
         if encontrados == 0:
@@ -272,3 +283,117 @@ def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguiler
 
     #LLAMO A LA FUNCIÓN PARA LISTAR LOS PRODUCTOS
     listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
+
+# LISTADO DE PRODUCTOS POR ORDENAMIENTO DESCENDENTE 
+def ordenDescendente (codigo, nombre, unidad, stockA, stockM, costo):
+    """Nos muestra los productos ordenados de mayor a menor"""
+
+    #HACEMLOS UNA LISTA CON LA CANIDAD DE PRODCUTOS
+    cantidad = len(costo)
+    indices = []
+    for i in range(cantidad):
+        indices.append(i)
+    
+    #HACEMOS UN CONTADOR PARA IR PASANDO EN LA LISTA
+    pasada = 0
+    while pasada < cantidad:
+        for i in range(cantidad - 1):
+            
+            #CADA VEZ QUE REITERAMOS SUMAMOS 1 AL INDICE PARA COMPARAR NUEVAMENTE
+            pos_actual = indices[i]
+            pos_siguiente = indices[i+1]
+            
+            #NOS FIJAMOS SI LA POSICION ACTUAL ES MENOR QUE LA SIGUIENTE
+            if float(costo[pos_actual]) < float(costo[pos_siguiente]):
+                indices[i], indices[i+1] = indices[i+1], indices[i]
+                
+        pasada += 1
+    
+    #MOSTRAMOS EN PANTALLA LA LISTA ORDENADA SEGUN NUESTRO INDICE
+    print("REPORTE DE COSTOS (MAYOR A MENOR)")
+    print("=" * 76)
+    if pasada == 0:
+        print("No hay productos para msotrar")
+        print("=" * 76)
+    for i in range(cantidad):
+        pos = indices[i]
+        print(f'{codigo[pos]:<10} | {nombre[pos]:<10} | {unidad[pos]:<10} | {stockA[pos]:<12} | {stockM[pos]:<12} | {costo[pos]:<10}')
+    print("=" * 76)
+
+# LISTADO DE PRODUCTOS CON STOCK IGUAL O INFERIOR AL STOCK MINIMO
+def stockCritico (codigo, nombre, unidad, stockA, stockM, costo):
+    """Muestra el stock en condiciones iguales o inferiores al stock minimo"""
+    
+    #DEFINIMOS CANTIDAD DE PRODUCTOS
+    cantidad = len(costo)
+
+    #CREAMOS VARIABLE PRODUCTOS PARA VER SI AL MENOS ENCONTRO UNO
+    productos = 0
+    print("=" * 76)
+    print(f"{'REPORTE DE STOCK CRÍTICO':^76}")
+    print("=" * 76)
+
+    #RECORRE LA LISTA COMPARANDO EL STOCKA CON EL STOCKM Y LO MUESTRA EN PANTALLA
+    for i in range(cantidad):
+        if int(stockA[i]) <= int(stockM[i]):
+            print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+            productos = 1
+
+    #SI NO ENCONTRO NINGUN PRODUCTO MUESTA EL MENSAJE 
+    if productos != 1 :
+        print("No hay productos con stock critico")
+
+# CONTADOR DE PRODUCTOS POR UNIDAD DE MEDIDA
+def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo):
+    """Cuenta la cantidad de productos de una medida en especifico"""
+
+    # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
+    def calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
+        '''Recorre la lista y suma los productos de una unidad de medida a elección'''
+
+        #VARIABLE QUE CUENTA LOS PRODUCTOS DE UNA MIDA UNIDAD DE MEDIDA
+        totalProductos = 0 
+        print("=" * 76)
+
+        #RECORRE LA LISTA BUSCANDO PRODUCTOS CON MISMA UNIDAD Y LO SUMA A LA VARIABLE
+        for i in range (len(unidad)):
+            if unidad[i] == busqueda:
+                totalProductos += 1
+                
+        # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
+        if totalProductos == 0:
+            print(f"No se encontraron productos con la unidad de medida: {busqueda}")
+        else:
+            print(f"Cantidad total de productos en {busqueda}: {totalProductos}")  
+        print("=" * 76)
+
+
+    # MUESTRA EL MENÚ Y PIDE LA OPCIÓN
+    print ("Seleccione la unidad de medida para calcular el total de productos: ")
+    print ("1 | Kilos")
+    print ("2 | Litros")
+    print ("3 | Unidades")
+    print ("4 | Metros")
+    opcion=int(input("Ingrese una opción: "))
+
+    # VALIDO LA OPCIÓN
+    while opcion < 1 or opcion > 4:
+        print("Error. Elija una opción valida.")
+        print ("1 | Kilos")
+        print ("2 | Litros")
+        print ("3 | Unidades")
+        print ("4 | Metros")
+        opcion=int(input("Ingrese una opción: "))
+
+    # GUARDA LA PALABRA SEGÚN LA OPCIÓN ELEGIDA
+    if opcion == 1:
+        busqueda = "kilos"
+    elif opcion == 2:
+        busqueda = "litros"
+    elif opcion == 3:
+        busqueda = "unidades"
+    else:
+        busqueda = "metros"
+
+    #LLAMO A LA VARIABLE PARA MOSTRAR EN PANTALLA EL TOTAL DE PRODUCTOS DE UNA UNIDAD DE MEDIDA
+    calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
