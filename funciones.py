@@ -216,7 +216,7 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     stockMN=int(input('escriba el stock minimo requerido para el producto: '))
     while stockMN<=0:
         stockMN=int(input('ERROR: escriba un stock minimo valido: '))
-    if stockMN>stockAN:
+    while stockMN>stockAN:
         stockMN=int(input('ERROR: el stock minimo no puede ser mayor que el stock actual, intente otra vez:  '))
     stockM.append(stockMN)
 
@@ -445,16 +445,18 @@ def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
 
 def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
-    encontrado=False
-    while buscado!='-1' and encontrado==False:
+    indexEncontrado = 0
+    while buscado!='-1':
+        encontrado = False
         for i in range (len(codigo)):
             if codigo[i]==buscado:
                 encontrado=True
+                indexEncontrado = i
         if encontrado==True:
             print('El producto existe.')
             print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
             print("-" * 80)
-            print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+            print(f'{codigo[indexEncontrado]:<10} | {nombre[indexEncontrado]:<10} | {unidad[indexEncontrado]:<10} | {stockA[indexEncontrado]:<12} | {stockM[indexEncontrado]:<12} | {costo[indexEncontrado]:<10}')
         else:
             print('El producto no fue encontrado.')
         buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
