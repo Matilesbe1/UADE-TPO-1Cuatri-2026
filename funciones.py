@@ -6,11 +6,11 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("3: Baja de producto")
     print("4: Listado de productos")
     print("5: Buscar producto por codigo")
-    print("6: Lista ordenada por Stock")
+    print("6: Lista ordenada por Stock Actual")
     print("7: Reporte por unidad de medida")
-    print("8: Orden de productos descendente")
-    print("9: Stock Critico")
-    print("10: Contador de productos por unidad de medida")
+    print("8: Orden de costo de productos descendente")
+    print("9: Reporte de Stock Critico")
+    print("10:Contador de productos por unidad de medida")
     print("0: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
@@ -315,7 +315,7 @@ def ordenDescendente (codigo, nombre, unidad, stockA, stockM, costo):
     print("REPORTE DE COSTOS (MAYOR A MENOR)")
     print("=" * 76)
     if pasada == 0:
-        print("No hay productos para msotrar")
+        print("No hay productos para mostrar")
         print("=" * 76)
     for i in range(cantidad):
         pos = indices[i]
@@ -400,7 +400,7 @@ def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo):
     #LLAMO A LA VARIABLE PARA MOSTRAR EN PANTALLA EL TOTAL DE PRODUCTOS DE UNA UNIDAD DE MEDIDA
     calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
 
-#FUNCION ORDENAMIENTO DE STOCK ACTUAL, DE MENOR A MAYOR
+#FUNCION ORDENAMIENTO DE STOCK ACTUAL, DE MENOR A MAYOR #Lorenzo Rossi
 def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
     '''Ordena la lista stockA de menor a mayor. También sus listas relacionadas.
         Se utiliza el método de ordenamiento por selección.'''
@@ -438,24 +438,26 @@ def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
         aux = costo[i]
         costo[i] = costo[index_min]
         costo[index_min] = aux
-
+    print("-" * 80)
+    print("PRODUCTOS ORDENADOS POR STOCK ACTUAL")
+    print("-" * 80)
     mostrarListado(codigo, nombre, unidad, stockA, stockM, costo)
 
 def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
-    buscado=input('ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+    buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     encontrado=False
     while buscado!='-1' and encontrado==False:
         for i in range (len(codigo)):
             if codigo[i]==buscado:
                 encontrado=True
         if encontrado==True:
-            print('el producto existe.')
+            print('El producto existe.')
             print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
             print("-" * 80)
             print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
         else:
-            print('el producto no fue encontrado')
-        buscado=input('ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+            print('El producto no fue encontrado.')
+        buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     return 
 
 
