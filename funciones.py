@@ -237,7 +237,7 @@ def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
         print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
 
 # FUNCIÓN FILTRADO POR UNIDAD DE MEDIDA
-def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera
+def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     '''Permite elegir una unidad de medida y muestra los productos que la usan'''
 
     # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
@@ -287,7 +287,7 @@ def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguiler
     listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
 
 # LISTADO DE PRODUCTOS POR ORDENAMIENTO DESCENDENTE 
-def ordenDescendente (codigo, nombre, unidad, stockA, stockM, costo):
+def ordenDescendente (codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     """Nos muestra los productos ordenados de mayor a menor"""
 
     #HACEMLOS UNA LISTA CON LA CANIDAD DE PRODCUTOS
@@ -323,7 +323,7 @@ def ordenDescendente (codigo, nombre, unidad, stockA, stockM, costo):
     print("=" * 76)
 
 # LISTADO DE PRODUCTOS CON STOCK IGUAL O INFERIOR AL STOCK MINIMO
-def stockCritico (codigo, nombre, unidad, stockA, stockM, costo):
+def stockCritico (codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     """Muestra el stock en condiciones iguales o inferiores al stock minimo"""
     
     #DEFINIMOS CANTIDAD DE PRODUCTOS
@@ -346,7 +346,7 @@ def stockCritico (codigo, nombre, unidad, stockA, stockM, costo):
         print("No hay productos con stock critico")
 
 # CONTADOR DE PRODUCTOS POR UNIDAD DE MEDIDA
-def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo):
+def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     """Cuenta la cantidad de productos de una medida en especifico"""
 
     # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
@@ -400,8 +400,8 @@ def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo):
     #LLAMO A LA VARIABLE PARA MOSTRAR EN PANTALLA EL TOTAL DE PRODUCTOS DE UNA UNIDAD DE MEDIDA
     calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda)
 
-#FUNCION ORDENAMIENTO DE STOCK ACTUAL, DE MENOR A MAYOR #Lorenzo Rossi
-def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo):
+#FUNCION ORDENAMIENTO DE STOCK ACTUAL, DE MENOR A MAYOR 
+def ordenarStockActual(codigo, nombre, unidad, stockA, stockM, costo): #Lorenzo Rossi
     '''Ordena la lista stockA de menor a mayor. También sus listas relacionadas.
         Se utiliza el método de ordenamiento por selección.'''
     for i in range(0,len(stockA)-1):
