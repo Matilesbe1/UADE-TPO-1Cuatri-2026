@@ -236,26 +236,26 @@ def mostrarListado(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     for i in range (len(codigo)):
         print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
 
+# CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
+def listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
+    '''Recorre la lista e imprime los productos que coinciden con la medida elegida'''
+
+    encontrados = 0 
+    print("=" * 76)
+    for i in range (len(unidad)):
+        if unidad[i] == busqueda:
+            print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
+            encontrados += 1
+    print("=" * 76)
+
+    # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
+    if encontrados == 0:
+        print(f"No se encontraron productos con la unidad de medida: {busqueda}")
+            
 # FUNCIÓN FILTRADO POR UNIDAD DE MEDIDA
 def filtrarMedida(codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     '''Permite elegir una unidad de medida y muestra los productos que la usan'''
 
-    # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
-    def listadoMedida (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
-        '''Recorre la lista e imprime los productos que coinciden con la medida elegida'''
-
-        encontrados = 0 
-        print("=" * 76)
-        for i in range (len(unidad)):
-            if unidad[i] == busqueda:
-                print(f'{codigo[i]:<10} | {nombre[i]:<10} | {unidad[i]:<10} | {stockA[i]:<12} | {stockM[i]:<12} | {costo[i]:<10}')
-                encontrados += 1
-        print("=" * 76)
-
-        # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
-        if encontrados == 0:
-            print(f"No se encontraron productos con la unidad de medida: {busqueda}")
-            
     # MUESTRA EL MENÚ Y PIDE LA OPCIÓN
     print ("¿Que unidad de medida desea mostrar?: ")
     print ("1 | Kilos")
@@ -345,30 +345,29 @@ def stockCritico (codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguiler
     if productos != 1 :
         print("No hay productos con stock critico")
 
-# CONTADOR DE PRODUCTOS POR UNIDAD DE MEDIDA
+# CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
+def calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
+    '''Recorre la lista y suma los productos de una unidad de medida a elección'''
+
+    #VARIABLE QUE CUENTA LOS PRODUCTOS DE UNA MIDA UNIDAD DE MEDIDA
+    totalProductos = 0 
+    print("=" * 76)
+
+    #RECORRE LA LISTA BUSCANDO PRODUCTOS CON MISMA UNIDAD Y LO SUMA A LA VARIABLE
+    for i in range (len(unidad)):
+        if unidad[i] == busqueda:
+            totalProductos += 1
+                
+    # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
+    if totalProductos == 0:
+        print(f"No se encontraron productos con la unidad de medida: {busqueda}")
+    else:
+        print(f"Cantidad total de productos en {busqueda}: {totalProductos}")  
+    print("=" * 76)
+
+#  CONTADOR DE PRODUCTOS POR UNIDAD DE MEDIDA
 def contadorMedida (codigo, nombre, unidad, stockA, stockM, costo): #Uriel Aguilera Martínez
     """Cuenta la cantidad de productos de una medida en especifico"""
-
-    # CREO LA FUNCIÓN PARA MOSTRAR LOS PRODUCTOS FILTRADOS
-    def calcularTotal (codigo, nombre, unidad, stockA, stockM, costo, busqueda):
-        '''Recorre la lista y suma los productos de una unidad de medida a elección'''
-
-        #VARIABLE QUE CUENTA LOS PRODUCTOS DE UNA MIDA UNIDAD DE MEDIDA
-        totalProductos = 0 
-        print("=" * 76)
-
-        #RECORRE LA LISTA BUSCANDO PRODUCTOS CON MISMA UNIDAD Y LO SUMA A LA VARIABLE
-        for i in range (len(unidad)):
-            if unidad[i] == busqueda:
-                totalProductos += 1
-                
-        # SI EL CONTADOR QUEDÓ EN CERO, INFORMA QUE NO HUBO COINCIDENCIAS
-        if totalProductos == 0:
-            print(f"No se encontraron productos con la unidad de medida: {busqueda}")
-        else:
-            print(f"Cantidad total de productos en {busqueda}: {totalProductos}")  
-        print("=" * 76)
-
 
     # MUESTRA EL MENÚ Y PIDE LA OPCIÓN
     print ("Seleccione la unidad de medida para calcular el total de productos: ")
@@ -454,7 +453,7 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matia
                 indexEncontrado = i
         if encontrado==True:
             print('El producto existe.')
-            print(f'{'Codigo':<10} | {'Nombre':<10} | {'Unidad':<10} | {'Stock Actual':<10} | {'Stock minimo':<10} | {'Costo':<10}')
+            print(f'{"Codigo":<10} | {"Nombre":<10} | {"Unidad":<10} | {"Stock Actual":<10} | {"Stock minimo":<10} | {"Costo":<10}')
             print("-" * 80)
             print(f'{codigo[indexEncontrado]:<10} | {nombre[indexEncontrado]:<10} | {unidad[indexEncontrado]:<10} | {stockA[indexEncontrado]:<12} | {stockM[indexEncontrado]:<12} | {costo[indexEncontrado]:<10}')
         else:
