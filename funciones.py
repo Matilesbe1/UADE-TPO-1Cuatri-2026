@@ -178,19 +178,25 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lore
 #FUNCIONES ALTA DE PRODUCTO
 def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     '''Recibe los nuevos datos que se quieren ingresar, los valida y los agrega a las listas'''
+    validarCodigoProducto(codigo)
+    validarNombre(nombre)
+    validarUnidad(unidad)
+    validarStock(stockA, stockM)
+    validarCosto(costo)
 
-    #RECIBE EL NUEVO CODIGO
+#RECIBE EL NUEVO CODIGO
+def validarCodigoProducto(codigo):
     codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
     while not codigoN[:3].isalpha() or not codigoN[3:].isnumeric() or len(codigoN)!=7:
         for i in range (len(codigo)):
             while codigoN==codigo[i] or not codigoN[:3].isalpha() or not codigoN[3:].isnumeric() or len(codigoN)!=7:
                 print('ERROR: el codigo ya existe o no cumple con los requisitos. ')
                 codigoN=input('escriba el codigo del nuevo producto, tiene que tener 3 letras y 4 numeros. Por ejemplo: abc1234: ')
-        codigoN=input('ERROR: intente otra vez (no cumple con los requisitos): ')
+        
     codigo.append(codigoN)
-    
 
-    #RECIBE EL NUEVO NOMBRE
+#RECIBE EL NUEVO NOMBRE
+def validarNombre(nombre): #Matias Lesbegueris
     nombreN=input('escriba el nombre del nuevo producto: ')
     for i in range (len(nombre)):
         while nombreN==nombre[i]:
@@ -199,33 +205,31 @@ def altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbe
     while len(nombreN)==0:
         nombreN=input('ERROR: escriba el nombre del nuevo producto: ')
     nombre.append(nombreN)
-
-    #RECIBE LA NUEVA UNIDAD
+#RECIBE LA NUEVA UNIDAD
+def validarUnidad(unidad):#Matias Lesbegueris
     unidadN=input('escriba la unidad de medida del producto (kilos, litros, metros, unidades): ')
     while unidadN.lower()!= 'kilos' and unidadN.lower()!= 'litros' and  unidadN.lower()!= 'metros' and unidadN.lower()!='unidades':
         unidadN=input('ERROR: escriba una unidad de medida valida (kilos, litros, metros, unidades): ')
     unidad.append(unidadN)
-
-    #RECIBE EL NUEVO STOCK
+#RECIBE EL NUEVO STOCK
+def validarStock(stockA, stockM):#Matias Lesbegueris
     stockAN=int(input('escriba el stock actual del producto: '))
     while stockAN<=0:
         stockAN=int(input('ERROR: escriba un stock valido: '))
     stockA.append(stockAN)
-
-    #RECIBE EL STOCK MINIMO
+#RECIBE EL STOCK MINIMO
     stockMN=int(input('escriba el stock minimo requerido para el producto: '))
     while stockMN<=0:
         stockMN=int(input('ERROR: escriba un stock minimo valido: '))
     if stockMN>stockAN:
         stockMN=int(input('ERROR: el stock minimo no puede ser mayor que el stock actual, intente otra vez:  '))
     stockM.append(stockMN)
-
-    #RECIBE EL COSTO
+#RECIBE EL COSTO
+def validarCosto(costo):#Matias Lesbegueris
     costoN=int(input('escriba el costo unitario del producto: '))
     while costoN<=0:
         costoN=int(input('ERROR: escriba un costo por unidad valido: '))
     costo.append(costoN)
-
     print('producto dado de alta')
 
 #FUNCIONES MOSTRAR LISTADO
