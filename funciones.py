@@ -14,6 +14,9 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("0: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
+    ejecutarOpcion(opcion)
+
+def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Lesbegueris
     while opcion < 0 or opcion > 10:
         print("Error. Elija una opcion valida.")
         opcion=int(input("Ingrese una opcion (0 para finalizar): "))
