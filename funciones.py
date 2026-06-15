@@ -468,4 +468,23 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matia
         buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     return 
 
+def reporteMatricialXRangoDeStock(unidad): #Matias Lesbegueris
+    matriz = [
+    [2, 1, 3],
+    [1, 2, 0],
+    [0, 3, 1],
+    [4, 2, 1]
+]
 
+    columnas = ["Baja", "Media", "Alta"]
+
+    print(f"{'':10}", end="")
+    for col in columnas:
+        print(f"{col:>6}", end="")
+    print()
+
+    for i in range(len(matriz)):
+        print(f"{unidad[i]:10}", end="")
+        for j in range(len(matriz[i])):
+            print(f"{matriz[i][j]:>6}", end="")
+        print()
