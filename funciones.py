@@ -10,14 +10,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("7: Reporte por unidad de medida")
     print("8: Orden de costo de productos descendente")
     print("9: Reporte de Stock Critico")
-    print("10:Contador de productos por unidad de medida")
+    print("10: Contador de productos por unidad de medida")
+    print("11: Reporte matricial de stock")
     print("0: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
-    ejecutarOpcion(opcion)
+    ejecutarOpcion(codigo, nombre, unidad, stockA, stockM, costo, opcion)
 
 def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Lesbegueris
-    while opcion < 0 or opcion > 10:
+    while opcion < 0 or opcion > 11:
         print("Error. Elija una opcion valida.")
         opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     if opcion == 1:
@@ -40,6 +41,8 @@ def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Le
         stockCritico(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 10:
         contadorMedida(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion==11:
+        reporteMatricialXRangoDeStock(codigo, stockA, unidad)
     elif opcion ==0:
         print("Gracias por usar el programa")
         return 0
@@ -468,80 +471,71 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matia
         buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     return 
 
-def contadorDeMatriz(codigo, stockA, unidad):
+def contadorDeMatriz(codigo, stockA, unidad): #MATIAS LESBEGUERIS
     contador_kilos=[0, 0, 0]
-    contador_metros_bajo=0
-    contador_metros_medio=0
-    contador_metros_alto=0
-    contador_unidades_bajo=0
-    contador_unidades_medio=0
-    contador_unidades_alto=0
-    contador_litros_bajo=0
-    contador_litros_medio=0
-    contador_litros_alto=0
+    contador_metros=[0, 0, 0]
+    contador_unidades=[0, 0, 0]
+    contador_litros=[0, 0, 0]
+
     for i in range (len(stockA)):
-        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='kilos':
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='kilos':
             contador_kilos[0]+=1
-        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='kilos':
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='kilos':
             contador_kilos[1]+=1
-        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='kilos':
+        if stockA[i]>50 and unidad[i]=='kilos':
             contador_kilos[2]+=1
 
     for i in range (len(stockA)):
-        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='metros':
-            contador_metros_bajo+=1
-        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='metros':
-            contador_metros_medio+=1
-        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='metros':
-            contador_metros_alto+=1
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='metros':
+            contador_metros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='metros':
+            contador_metros[1]+=1
+        if stockA[i] >50 and unidad[i]=='metros':
+            contador_metros[2]+=1
     
     for i in range (len(stockA)):
-        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='unidades':
-            contador_unidades_bajo+=1
-        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='unidades':
-            contador_unidades_medio+=1
-        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='unidades':
-            contador_unidades_alto+=1
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='unidades':
+            contador_unidades[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='unidades':
+            contador_unidades[1]+=1
+        if stockA[i] >50 and unidad[i]=='unidades':
+            contador_unidades[2]+=1
 
     for i in range (len(stockA)):
-        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='litros':
-            contador_litros_bajo+=1
-        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='litros':
-            contador_litros_medio+=1
-        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='litros':
-            contador_litros_alto+=1
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='litros':
+            contador_litros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='litros':
+            contador_litros[1]+=1
+        if stockA[i] >50 and unidad[i]=='litros':
+            contador_litros[2]+=1
 
+    matriz=agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros)
+    return matriz
+
+def agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros): #MATIAS LESBEGUERIS
     matriz=[]
     for i in range (len(unidad)):
-        matriz.append(contador_kilos)
+        matriz.append([])
 
-    matriz[0].append(contador_kilos)
-    matriz[1].append(contador_metros_bajo)
-    matriz[1].append(contador_metros_medio)
-    matriz[1].append(contador_metros_alto)
-    matriz[2].append(contador_unidades_bajo)
-    matriz[2].append(contador_unidades_medio)
-    matriz[2].append(contador_unidades_alto)
-    matriz[3].append(contador_litros_bajo)
-    matriz[3].append(contador_litros_medio)
-    matriz[3].append(contador_litros_alto)
+    matriz[0]=contador_kilos
+    matriz[1]=contador_metros
+    matriz[2]=contador_unidades
+    matriz[3]=contador_litros
 
     return matriz
 
 
 def reporteMatricialXRangoDeStock(codigo, stockA, unidad): #Matias Lesbegueris
-    #VER
     matriz = contadorDeMatriz(codigo, stockA, unidad)
-
     columnas = ["Baja", "Media", "Alta"]
-
+    print()
     print(f"{'':10}", end="")
     for col in columnas:
-        print(f"{col:>6}", end="")
+        print(f"{col:>10}", end="")
     print()
-
     for i in range(len(matriz)):
         print(f"{unidad[i]:10}", end="")
         for j in range(len(matriz[i])):
-            print(f"{matriz[i][j]:>6}", end="")
+            print(f"{matriz[i][j]:>10}", end="")
         print()
+    print()
