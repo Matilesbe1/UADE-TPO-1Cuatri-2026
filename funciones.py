@@ -468,13 +468,70 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matia
         buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     return 
 
-def reporteMatricialXRangoDeStock(unidad): #Matias Lesbegueris
-    matriz = [
-    [2, 1, 3],
-    [1, 2, 0],
-    [0, 3, 1],
-    [4, 2, 1]
-]
+def contadorDeMatriz(codigo, stockA, unidad):
+    contador_kilos=[0, 0, 0]
+    contador_metros_bajo=0
+    contador_metros_medio=0
+    contador_metros_alto=0
+    contador_unidades_bajo=0
+    contador_unidades_medio=0
+    contador_unidades_alto=0
+    contador_litros_bajo=0
+    contador_litros_medio=0
+    contador_litros_alto=0
+    for i in range (len(stockA)):
+        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='kilos':
+            contador_kilos[0]+=1
+        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='kilos':
+            contador_kilos[1]+=1
+        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='kilos':
+            contador_kilos[2]+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='metros':
+            contador_metros_bajo+=1
+        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='metros':
+            contador_metros_medio+=1
+        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='metros':
+            contador_metros_alto+=1
+    
+    for i in range (len(stockA)):
+        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='unidades':
+            contador_unidades_bajo+=1
+        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='unidades':
+            contador_unidades_medio+=1
+        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='unidades':
+            contador_unidades_alto+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=10 and stockA[i]>=0 and unidad[i]=='litros':
+            contador_litros_bajo+=1
+        if stockA[i] <=50 and stockA[i]>=10 and unidad[i]=='litros':
+            contador_litros_medio+=1
+        if stockA[i] <=100 and stockA[i]>=50 and unidad[i]=='litros':
+            contador_litros_alto+=1
+
+    matriz=[]
+    for i in range (len(unidad)):
+        matriz.append(contador_kilos)
+
+    matriz[0].append(contador_kilos)
+    matriz[1].append(contador_metros_bajo)
+    matriz[1].append(contador_metros_medio)
+    matriz[1].append(contador_metros_alto)
+    matriz[2].append(contador_unidades_bajo)
+    matriz[2].append(contador_unidades_medio)
+    matriz[2].append(contador_unidades_alto)
+    matriz[3].append(contador_litros_bajo)
+    matriz[3].append(contador_litros_medio)
+    matriz[3].append(contador_litros_alto)
+
+    return matriz
+
+
+def reporteMatricialXRangoDeStock(codigo, stockA, unidad): #Matias Lesbegueris
+    #VER
+    matriz = contadorDeMatriz(codigo, stockA, unidad)
 
     columnas = ["Baja", "Media", "Alta"]
 
