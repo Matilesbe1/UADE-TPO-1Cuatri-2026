@@ -10,11 +10,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("7: Reporte por unidad de medida")
     print("8: Orden de costo de productos descendente")
     print("9: Reporte de Stock Critico")
-    print("10:Contador de productos por unidad de medida")
+    print("10: Contador de productos por unidad de medida")
+    print("11: Reporte matricial de stock")
     print("0: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
-    while opcion < 0 or opcion > 10:
+    ejecutarOpcion(codigo, nombre, unidad, stockA, stockM, costo, opcion)
+
+def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Lesbegueris
+    while opcion < 0 or opcion > 11:
         print("Error. Elija una opcion valida.")
         opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     if opcion == 1:
@@ -37,6 +41,8 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
         stockCritico(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 10:
         contadorMedida(codigo,nombre,unidad,stockA,stockM,costo)
+    elif opcion==11:
+        reporteMatricialXRangoDeStock(codigo, stockA, unidad)
     elif opcion ==0:
         print("Gracias por usar el programa")
         return 0
@@ -477,4 +483,71 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): #Matia
         buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
     return 
 
+def contadorDeMatriz(codigo, stockA, unidad): #MATIAS LESBEGUERIS
+    contador_kilos=[0, 0, 0]
+    contador_metros=[0, 0, 0]
+    contador_unidades=[0, 0, 0]
+    contador_litros=[0, 0, 0]
 
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='kilos':
+            contador_kilos[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='kilos':
+            contador_kilos[1]+=1
+        if stockA[i]>50 and unidad[i]=='kilos':
+            contador_kilos[2]+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='metros':
+            contador_metros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='metros':
+            contador_metros[1]+=1
+        if stockA[i] >50 and unidad[i]=='metros':
+            contador_metros[2]+=1
+    
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='unidades':
+            contador_unidades[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='unidades':
+            contador_unidades[1]+=1
+        if stockA[i] >50 and unidad[i]=='unidades':
+            contador_unidades[2]+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='litros':
+            contador_litros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='litros':
+            contador_litros[1]+=1
+        if stockA[i] >50 and unidad[i]=='litros':
+            contador_litros[2]+=1
+
+    matriz=agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros)
+    return matriz
+
+def agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros): #MATIAS LESBEGUERIS
+    matriz=[]
+    for i in range (len(unidad)):
+        matriz.append([])
+
+    matriz[0]=contador_kilos
+    matriz[1]=contador_metros
+    matriz[2]=contador_unidades
+    matriz[3]=contador_litros
+
+    return matriz
+
+
+def reporteMatricialXRangoDeStock(codigo, stockA, unidad): #Matias Lesbegueris
+    matriz = contadorDeMatriz(codigo, stockA, unidad)
+    columnas = ["Baja", "Media", "Alta"]
+    print()
+    print(f"{'':10}", end="")
+    for col in columnas:
+        print(f"{col:>10}", end="")
+    print()
+    for i in range(len(matriz)):
+        print(f"{unidad[i]:10}", end="")
+        for j in range(len(matriz[i])):
+            print(f"{matriz[i][j]:>10}", end="")
+        print()
+    print()
