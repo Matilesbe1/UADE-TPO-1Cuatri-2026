@@ -176,6 +176,8 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lo
 
 #FUNCIONES BAJA DE PRODCUTO
 def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lorenzo Rossi
+    '''Recibe el código del prodcuto a dar de baja. Verifica si se encuentra en la lista.
+    Una vez encontrado, pide una reconfirmaciín y luego lo elimina definitivamente.'''
     codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     indexCodigoInput = 0
     while busquedaSecuencial(codigos,codigoInput) == False:
