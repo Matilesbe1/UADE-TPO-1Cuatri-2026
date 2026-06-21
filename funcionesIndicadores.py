@@ -1,25 +1,26 @@
-def mostrarProd(codigo, nombre, stockA, indexEncontrado):
+# Funciones pertenecientes al reporte #2
+## Indicadores Generales de Inventario
+
+def mostrarProd(codigo, nombre, stockA, indexEncontrado): #Lorenzo Rossi
     '''Recibe las listas necesarias y el índice del producto que se desea mostrar. 
         Devuleve los valores correspondientes ordenados de forma visual y prolija'''
     print(f"  | Código: {codigo[indexEncontrado]:<10} | Nombre: {nombre[indexEncontrado]:<12} | Stock: {stockA[indexEncontrado]:<6}")
 
-def contadorProductos(codigo):
+def contadorProductos(codigo): #Lorenzo Rossi
     '''Recibe la lista de productos, los cuenta y devuelve su cantidad como int'''
     cont = 0
     for i in range(len(codigo)):
         cont += 1
     return cont
 
-def valorTotalInventario(codigo, stockA, costo):
+def valorTotalInventario(codigo, stockA, costo): #Lorenzo Rossi
     '''Recibe las listas correspondientes, suma el stockA de cada uno de ellos y devuelve el total como int'''
     sumaTotal = 0
-    sumaProd = 0 
     for i in range(len(codigo)):
-        sumaProd = stockA[i] * costo[i]
-        sumaTotal += sumaProd
+        sumaTotal += stockA[i] * costo[i]
     return sumaTotal
 
-def promCostoUnitario(codigo, costo):
+def promCostoUnitario(codigo, costo): #Lorenzo Rossi
     '''Recibe las listas correspondientes y toma la cantidad de la funcion contadorProdcutos().
         Luego suma los costos de cada uno de ellos y realiza el promedio. Devuelve este último como int.'''
     cantTotal = contadorProductos(codigo) # TRAEMOS DE LA FUNCIÓN CONTADORA LA CANTIDAD TOTAL DE PRODUCTOS
@@ -34,7 +35,7 @@ def promCostoUnitario(codigo, costo):
         promedio = 0
     return promedio
 
-def prodMayorStockA(stockA):
+def prodMayorStockA(stockA): #Lorenzo Rossi
     '''Recibe el stock actual de los prodcutos  y encuentra el máximo.
         Devuelve el índice del máximo encontrado para después ser mostrado por la dunción mostrarProd().'''
     maxStockA = 0
@@ -58,7 +59,7 @@ def prodMenorStockA(stockA):
                 indexEncontrado = i # GUARDAMOS EL ÍNDICE MENOR PARA LUEGO MOSTRARLO CON OTRA FUNCIÓN
     return indexEncontrado
 
-def prodStockCritico(stockA, stockM):
+def prodStockCritico(stockA, stockM): #Lorenzo Rossi
     '''Recibe las listas de stock y verifica si existen productos con stock critico (stock actual menor o igual al mínimo).
         Si existen prodcutos retorna su cantidad mediante la variable conr (int), de lo contrario devuelve un mensaje.'''
     cont = 0
@@ -70,7 +71,7 @@ def prodStockCritico(stockA, stockM):
     else:
         return f"No se encontraron productos con stock crítico."
     
-def cantUniMedida(unidad):
+def cantUniMedida(unidad): #Lorenzo Rossi
     '''Se crean dos listas relacionadas: una con las unidaes posibles y otras con sus respectivos contadores.
         Primero se cuentan la cantidad de cada unidad.
         Luego se busca el máximo entre los contadores.

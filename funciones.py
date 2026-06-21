@@ -63,6 +63,19 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Les
         print("Gracias por usar el programa")
         return 0
 
+#FUNCIÓN BUSQUEDA SECUENCIAL DE PRODCUTOS
+def busquedaSecuencial(lista,valor): #Lorenzo Rossi
+    '''Función para verificar si un valor se encuentra o no en una lista.
+        Recibe la lista y el valor buscado.
+        Retorna valor booleano dependiendo del estado del elemento buscado.'''
+    encontrado = False #suponemos que el producto no está en la lista
+    i = 0
+    while i < len(lista) and encontrado == False:
+        if lista[i] == valor:
+            encontrado = True
+        i += 1
+    return encontrado
+
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): # Lorenzo Rossi
     '''Muestra las opciones del menú de modificaciones'''
@@ -121,7 +134,7 @@ def modifStock(index, stockA, stockM, tipoStock): # Lorenzo Rossi
                 print(f"Error. Ingresó un valor negativo o un valor mayor al stock {tipoStock}.")
                 cantResta = int(input("Ingrese la cantidad a restar: "))
             stockM[index] -= cantResta
-    print('stock modificado')
+    print('Stock modificado con éxito.')
 
 def modifCosto(index, costo): # Lorenzo Rossi
     '''Recibe el producto elegido y la lista de costos. Realiza las operaciones de suma o resta correspondientes validando que el valor final no sea 0.'''
@@ -141,7 +154,7 @@ def modifCosto(index, costo): # Lorenzo Rossi
             print("Error. Ingresó un valor negativo o un valor que convierte al costo en 0.")
             cantResta = int(input("Ingrese la cantidad a restar: "))
         costo[index] -= cantResta
-    print('costo modificado')
+    print('Costo modificado con éxito')
 
 def modificarProducto(codigos, nombres, unidad, stockActual, stockMinimo, costo): # Lorenzo Rossi
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
@@ -150,8 +163,10 @@ def modificarProducto(codigos, nombres, unidad, stockActual, stockMinimo, costo)
     print(f"{'MODIFICACIÓN DE PRODUCTO':^80}")
     print("=" * 80)
     codigoInput = input("Ingrese el código del producto a modificar: ")
-    
-    indexCodigoInput = -1
+    indexCodigoInput = 0
+    while busquedaSecuencial(codigos,codigoInput) == False:
+        print("No se encontró el código seleccionado. Intente nuevamente.")
+        codigoInput = input("Ingrese el código del producto a modificar: ")
     for i in range(len(codigos)):
         if codigos[i] == codigoInput:
             indexCodigoInput = i
@@ -185,34 +200,24 @@ def modificarProducto(codigos, nombres, unidad, stockActual, stockMinimo, costo)
     else:
         modifCosto(indexCodigoInput, costo)
 
-# FUNCIONES BAJA DE PRODUCTO
-def bajaProducto(codigos, nombres, unidades, stockActual, stockMinimo, costos): # Lorenzo Rossi
-    print("") # DESPEJA LA CONSOLA
-    print("=" * 80)
-    print(f"{'BAJA DE PRODUCTO':^80}")
-    print("=" * 80)
+#FUNCIONES BAJA DE PRODCUTO
+def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lorenzo Rossi
+    '''Recibe el código del prodcuto a dar de baja. Verifica si se encuentra en la lista.
+    Una vez encontrado, pide una reconfirmaciín y luego lo elimina definitivamente.'''
     codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
-    
-    indexCodigoInput = -1
+    indexCodigoInput = 0
+    while busquedaSecuencial(codigos,codigoInput) == False:
+        print("No se encontró el código seleccionado. Intente nuevamente.")
+        codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     for i in range(len(codigos)):
         if codigos[i] == codigoInput:
             indexCodigoInput = i
-            
-    while indexCodigoInput == -1:
-        print("No se encontró el código seleccionado. Intente nuevamente.")
-        codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
-        for i in range(len(codigos)):
-            if codigos[i] == codigoInput:
-                indexCodigoInput = i
-                
-    # LLAMAMOS AL ENCABEZADO PROPIO DE LA TABLA
-    mostrarEncabezadoTabla()
-    print(f'{codigos[indexCodigoInput]:<10} | {nombres[indexCodigoInput]:<10} | {unidades[indexCodigoInput]:<10} | {stockActual[indexCodigoInput]:<12} | {stockMinimo[indexCodigoInput]:<12} | {costos[indexCodigoInput]:<10}')
-    print("=" * 80)
-    op = input("Está seguro que quiere dar de baja el producto seleccionado (y/n)?: ")
+    print("Producto encontrado")
+    print(codigos[indexCodigoInput],nombres[indexCodigoInput],unidades[indexCodigoInput],stockActual[indexCodigoInput],stockMinimo[indexCodigoInput],costos[indexCodigoInput])
+    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ").lower()
     while op != "y" and op != "n":
-        print("Error. Ingresó una respuesta inválida. Responda con y o n")
-        op = input("Está seguro que quiere dar de baja el producto seleccionado (y/n)?: ")
+        print("Error. Ingresó una respuesta inválida. Responda con y (si lo desea) o n (si no lo desea)")
+        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ").lower()
     if op == "n":
         print("Ha seleccionado NO, por lo tanto el producto no fue dado de baja.")
     else:
@@ -552,5 +557,74 @@ def buscarProductoXCodigo(codigo, nombre, unidad, stockA, stockM, costo): # Mati
             print("-" * 80)
         else:
             print('El producto no fue encontrado.')
-        buscado = input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+        buscado=input('Ingrese el codigo del producto que quiera buscar (-1 para finalizar): ')
+    return 
+
+def contadorDeMatriz(codigo, stockA, unidad): #MATIAS LESBEGUERIS
+    contador_kilos=[0, 0, 0]
+    contador_metros=[0, 0, 0]
+    contador_unidades=[0, 0, 0]
+    contador_litros=[0, 0, 0]
+
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='kilos':
+            contador_kilos[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='kilos':
+            contador_kilos[1]+=1
+        if stockA[i]>50 and unidad[i]=='kilos':
+            contador_kilos[2]+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='metros':
+            contador_metros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='metros':
+            contador_metros[1]+=1
+        if stockA[i] >50 and unidad[i]=='metros':
+            contador_metros[2]+=1
     
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='unidades':
+            contador_unidades[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='unidades':
+            contador_unidades[1]+=1
+        if stockA[i] >50 and unidad[i]=='unidades':
+            contador_unidades[2]+=1
+
+    for i in range (len(stockA)):
+        if stockA[i] <=20 and stockA[i]>=0 and unidad[i]=='litros':
+            contador_litros[0]+=1
+        if stockA[i] <=50 and stockA[i]> 21 and unidad[i]=='litros':
+            contador_litros[1]+=1
+        if stockA[i] >50 and unidad[i]=='litros':
+            contador_litros[2]+=1
+
+    matriz=agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros)
+    return matriz
+
+def agregarAMatriz(unidad, contador_kilos, contador_metros, contador_unidades, contador_litros): #MATIAS LESBEGUERIS
+    matriz=[]
+    for i in range (len(unidad)):
+        matriz.append([])
+
+    matriz[0]=contador_kilos
+    matriz[1]=contador_metros
+    matriz[2]=contador_unidades
+    matriz[3]=contador_litros
+
+    return matriz
+
+
+def reporteMatricialXRangoDeStock(codigo, stockA, unidad): #Matias Lesbegueris
+    matriz = contadorDeMatriz(codigo, stockA, unidad)
+    columnas = ["Baja", "Media", "Alta"]
+    print()
+    print(f"{'':10}", end="")
+    for col in columnas:
+        print(f"{col:>10}", end="")
+    print()
+    for i in range(len(matriz)):
+        print(f"{unidad[i]:10}", end="")
+        for j in range(len(matriz[i])):
+            print(f"{matriz[i][j]:>10}", end="")
+        print()
+    print()
