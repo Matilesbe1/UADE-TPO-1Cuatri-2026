@@ -1,21 +1,6 @@
 # Funciones pertenecientes al reporte #2
 ## Indicadores Generales de Inventario
 
-codigo=['abc1111','abc2222','abc3333','abc4444']
-nombre=["azucar","cinta","moto","cerveza"]
-unidad=['kilos',"metros", "unidades","litros"]
-stockA=[50,5,5,10]
-stockM=[5,10,1,2]
-costo=[100,50,500,250]
-
-# codigo=[]
-# nombre=[]
-# unidad=[]
-# stockA=[]
-# stockM=[]
-# costo=[]
-
-
 def mostrarProd(codigo, nombre, stockA, indexEncontrado):
     '''Recibe las listas necesarias y el índice del producto que se desea mostrar. 
         Devuleve los valores correspondientes ordenados de forma visual y prolija'''
@@ -116,7 +101,7 @@ def cantUniMedida(unidad):
     
         
     
-def main():
+def ejecutarReporte(codigo, nombre, unidad, stockA, stockM, costo):
     print("-"*54)
     print(f"{"#"*5} REPORTE ESTADÍSTICO GENERAL DEL INVENTARIO {"#"*5}")
     print("-"*54)
@@ -129,7 +114,7 @@ def main():
     else:
         print("Valor total inventario:")
         print(f"${valorTotalInventario(codigo, stockA, costo):,} \n")
-     
+    
         print("Promedio costos unitarios:")
         print(f"${promCostoUnitario(codigo, costo):,}\n")
         
@@ -148,6 +133,6 @@ def main():
         print(f"{cantUniMedida(unidad)}\n")
         
 
-main()
+
 
 

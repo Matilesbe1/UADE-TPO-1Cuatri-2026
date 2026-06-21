@@ -1,3 +1,4 @@
+import funcionesIndicadores
 def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesbegueris
     '''Muestra las opciones del menú principal'''
     print("-"*80)
@@ -12,13 +13,14 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("9: Reporte de Stock Critico")
     print("10: Contador de productos por unidad de medida")
     print("11: Reporte matricial de stock")
+    print("12: Reporte total de productos")
     print("0: Salir")
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     ejecutarOpcion(codigo, nombre, unidad, stockA, stockM, costo, opcion)
 
 def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Lesbegueris
-    while opcion < 0 or opcion > 11:
+    while opcion < 0 or opcion > 12:
         print("Error. Elija una opcion valida.")
         opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     if opcion == 1:
@@ -43,6 +45,8 @@ def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Le
         contadorMedida(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion==11:
         reporteMatricialXRangoDeStock(codigo, stockA, unidad)
+    elif opcion==12:
+        funcionesIndicadores.ejecutarReporte(codigo, nombre, unidad, stockA, stockM, costo)
     elif opcion ==0:
         print("Gracias por usar el programa")
         return 0
