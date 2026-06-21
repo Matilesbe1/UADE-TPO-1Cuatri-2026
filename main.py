@@ -8,6 +8,7 @@ stockA=[5,100,5,25]
 stockM=[5,10,1,2]
 costo=[100,50,500,250]
 
+
 def main():
     op =funciones.mostrarOpciones(codigo,nombre,unidad,stockA,stockM,costo)
     while op!=0:

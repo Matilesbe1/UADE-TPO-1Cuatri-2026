@@ -15,6 +15,8 @@ El usuario puede elegir entre distintas opciones para administrar productos:
     * Reporte según unidad de medida
     * Reporte de stocks mínimos
 * Contador de productos por unidad de medida
+* Reporte matricial por unidad de medida y rango de stock
+* Reporte de indicadores generales del inventario
 * Salir del programa
 
 ---
@@ -95,6 +97,31 @@ Muestra todos los productos cuyo stock actual es igual o inferior al stock míni
 ### Contador de productos por unidad de medida
  
 Permite al usuario seleccionar una unidad de medida y muestra la cantidad total de productos registrados bajo esa unidad. Si no hay productos para la unidad seleccionada, se informa al usuario.
+
+---
+
+### Reporte matricial por unidad de medida y rango de stock
+ 
+Genera una matriz que cruza las unidades de medida con los rangos de stock disponible. Cada fila representa una unidad de medida (kilos, litros, metros, unidades) y cada columna representa un rango de stock:
+ 
+* **Bajo:** entre 0 y 20 unidades
+* **Medio:** entre 21 y 50 unidades
+* **Alto:** más de 50 unidades
+Cada celda muestra la cantidad de productos que pertenecen a esa combinación. La matriz se construye recorriendo manualmente las listas existentes y funciona aunque no haya productos cargados.
+ 
+---
+ 
+### Reporte de indicadores generales del inventario
+ 
+Genera un conjunto de estadísticas que permiten conocer el estado general del inventario. Los cálculos se realizan mediante recorridos manuales, acumuladores, contadores y comparaciones sobre las listas existentes. El reporte incluye:
+ 
+1. **Cantidad total de productos** registrados en el sistema
+2. **Valor total del inventario**, calculado como la suma de stock actual × costo unitario por cada producto
+3. **Promedio de costo unitario** de todos los productos
+4. **Producto con mayor stock actual**, mostrando código, nombre y stock
+5. **Producto con menor stock actual**, mostrando código, nombre y stock
+6. **Cantidad de productos con stock crítico**, cuando el stock actual es menor o igual al stock mínimo
+7. **Unidad de medida más utilizada**, indicando cuál tiene la mayor cantidad de productos registrados
 
 ---
 

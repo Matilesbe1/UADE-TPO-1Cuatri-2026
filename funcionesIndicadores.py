@@ -16,10 +16,8 @@ def contadorProductos(codigo):
 def valorTotalInventario(codigo, stockA, costo):
     '''Recibe las listas correspondientes, suma el stockA de cada uno de ellos y devuelve el total como int'''
     sumaTotal = 0
-    sumaProd = 0 
     for i in range(len(codigo)):
-        sumaProd = stockA[i] * costo[i]
-        sumaTotal += sumaProd
+        sumaTotal += stockA[i] * costo[i]
     return sumaTotal
 
 def promCostoUnitario(codigo, costo):
@@ -48,7 +46,7 @@ def prodMenorStockA(stockA):
     '''Recibe el stock actual de los prodcutos  y encuentra el mínimo.
         Devuelve el índice del mínimo encontrado para después ser mostrado por la dunción mostrarProd().'''
     minStockA = stockA[0]
-    indexEncontrado = -1
+    indexEncontrado = 0
     for i in range(len(stockA)):
         if stockA[i] < minStockA:
             minStockA = stockA[i]
@@ -106,12 +104,15 @@ def ejecutarReporte(codigo, nombre, unidad, stockA, stockM, costo):
     print(f"{"#"*5} REPORTE ESTADÍSTICO GENERAL DEL INVENTARIO {"#"*5}")
     print("-"*54)
     
-    print("Cantidad de prodcutos:")
-    print(f"{contadorProductos(codigo)}\n")
+    
+    cantProductos = contadorProductos(codigo)
 
-    if contadorProductos(codigo) == 0:
+    if cantProductos == 0:
         print(f"No se encontraron prodcutos. Verifique su inventrio o ingrese nuevos productos.")
     else:
+        print("Cantidad de prodcutos:")
+        print(f"{cantProductos}\n")
+
         print("Valor total inventario:")
         print(f"${valorTotalInventario(codigo, stockA, costo):,} \n")
     

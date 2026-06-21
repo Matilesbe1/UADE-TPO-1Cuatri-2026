@@ -18,12 +18,15 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
     print("-"*80)
     opcion=int(input("Ingrese una opcion (0 para finalizar): "))
     ejecutarOpcion(codigo, nombre, unidad, stockA, stockM, costo, opcion)
+    return opcion
 
 def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Lesbegueris
     while opcion < 0 or opcion > 12:
         print("Error. Elija una opcion valida.")
         opcion=int(input("Ingrese una opcion (0 para finalizar): "))
-    if opcion == 1:
+    if opcion != 1 and opcion != 0 and funcionesIndicadores.contadorProductos(codigo) == 0:
+        print("Error. No hay productos caragdos. Ingrese uno primero.")
+    elif opcion == 1:
         altaDeProducto(codigo,nombre,unidad,stockA,stockM,costo)
     elif opcion == 2:
         modificarProducto(codigo,nombre,unidad,stockA,stockM,costo)
@@ -51,6 +54,7 @@ def ejecutarOpcion(codigo,nombre,unidad,stockA,stockM,costo, opcion): #Matias Le
         print("Gracias por usar el programa")
         return 0
 
+#FUNCIÓN BUSQUEDA SECUENCIAL DE PRODCUTOS
 def busquedaSecuencial(lista,valor): #Lorenzo Rossi
     '''Función para verificar si un valor se encuentra o no en una lista.
         Recibe la lista y el valor buscado.
