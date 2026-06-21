@@ -1,4 +1,4 @@
-#Programa principal
+# PROGRAMA PRINCIPAL
 import funciones 
 
 codigo=['abc1111','abc2222','abc3333','abc4444']

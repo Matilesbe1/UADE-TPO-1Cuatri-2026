@@ -4,7 +4,7 @@
 def mostrarProd(codigo, nombre, stockA, indexEncontrado): #Lorenzo Rossi
     '''Recibe las listas necesarias y el índice del producto que se desea mostrar. 
         Devuleve los valores correspondientes ordenados de forma visual y prolija'''
-    print(f"Código: {codigo[indexEncontrado]} \nNombre: {nombre[indexEncontrado]} \nStock actual: {stockA[indexEncontrado]} \n")
+    print(f"  | Código: {codigo[indexEncontrado]:<10} | Nombre: {nombre[indexEncontrado]:<12} | Stock: {stockA[indexEncontrado]:<6}")
 
 def contadorProductos(codigo): #Lorenzo Rossi
     '''Recibe la lista de productos, los cuenta y devuelve su cantidad como int'''
@@ -23,11 +23,16 @@ def valorTotalInventario(codigo, stockA, costo): #Lorenzo Rossi
 def promCostoUnitario(codigo, costo): #Lorenzo Rossi
     '''Recibe las listas correspondientes y toma la cantidad de la funcion contadorProdcutos().
         Luego suma los costos de cada uno de ellos y realiza el promedio. Devuelve este último como int.'''
-    cantTotal = contadorProductos(codigo) # traemos de la función contadora la cantidad total de productos
+    cantTotal = contadorProductos(codigo) # TRAEMOS DE LA FUNCIÓN CONTADORA LA CANTIDAD TOTAL DE PRODUCTOS
     costoTotal = 0
     for i in range(len(costo)):
         costoTotal += costo[i]
-    promedio = costoTotal / cantTotal
+    
+    # EVITAMOS DIVISIÓN POR CERO SI EL INVENTARIO ESTÁ VACÍO
+    if cantTotal > 0:
+        promedio = int(costoTotal / cantTotal)
+    else:
+        promedio = 0
     return promedio
 
 def prodMayorStockA(stockA): #Lorenzo Rossi
@@ -38,19 +43,20 @@ def prodMayorStockA(stockA): #Lorenzo Rossi
     for i in range(len(stockA)):
         if stockA[i] > maxStockA:
             maxStockA = stockA[i]
-            indexEncontrado = i #guardamos el índice del mayor para luego mostrarlo con la función correspondiente
+            indexEncontrado = i # GUARDAMOS EL ÍNDICE DEL MAYOR PARA LUEGO MOSTRARLO CON LA FUNCIÓN CORRESPONDIENTE
     return indexEncontrado
 
-
-def prodMenorStockA(stockA): #Lorenzo Rossi
-    '''Recibe el stock actual de los prodcutos  y encuentra el mínimo.
+def prodMenorStockA(stockA):
+    '''Recibe el stock actual de los prodcutos y encuentra el mínimo.
         Devuelve el índice del mínimo encontrado para después ser mostrado por la dunción mostrarProd().'''
-    minStockA = stockA[0]
-    indexEncontrado = 0
-    for i in range(len(stockA)):
-        if stockA[i] < minStockA:
-            minStockA = stockA[i]
-            indexEncontrado = i #guardamos el índice menor para luego mostrarlo con otra función
+    indexEncontrado = -1
+    if len(stockA) > 0:
+        minStockA = stockA[0]
+        indexEncontrado = 0
+        for i in range(len(stockA)):
+            if stockA[i] < minStockA:
+                minStockA = stockA[i]
+                indexEncontrado = i # GUARDAMOS EL ÍNDICE MENOR PARA LUEGO MOSTRARLO CON OTRA FUNCIÓN
     return indexEncontrado
 
 def prodStockCritico(stockA, stockM): #Lorenzo Rossi
@@ -60,10 +66,10 @@ def prodStockCritico(stockA, stockM): #Lorenzo Rossi
     for i in range(len(stockA)):
         if stockA[i] <= stockM[i]:
             cont += 1
-    if cont != 0: #verificamos que haya algún stock critico y devolvemos la cantidad, de lo contrario devolvemos un mensaje.
+    if cont != 0: # VERIFICAMOS QUE HAYA ALGÚN STOCK CRÍTICO Y DEVOLVEMOS LA CANTIDAD, DE LO CONTRARIO DEVOLVEMOS UN MENSAJE.
         return cont
     else:
-        return f"No se encontraron prodcutos con stock crítico."
+        return f"No se encontraron productos con stock crítico."
     
 def cantUniMedida(unidad): #Lorenzo Rossi
     '''Se crean dos listas relacionadas: una con las unidaes posibles y otras con sus respectivos contadores.
@@ -74,65 +80,65 @@ def cantUniMedida(unidad): #Lorenzo Rossi
     
     lstUnidades = ["kilos","litros","metros","unidades"]
     lstContadores = [0, 0, 0, 0]
-    for i in range(len(unidad)): #iteramos entre las distintas unidades y las contabilizamos
+    for i in range(len(unidad)): # ITERAMOS ENTRE LAS DISTINTAS UNIDADES Y LAS CONTABILIZAMOS
         for j in range(len(lstUnidades)):
             if unidad[i] == lstUnidades[j]:
                 lstContadores[j] += 1
 
     maxCont = 0
     indexMax = -1
-    for k in range(len(lstContadores)): #iteramos entre los contadores y buscamos el máximo
+    for k in range(len(lstContadores)): # ITERAMOS ENTRE LOS CONTADORES Y BUSCAMOS EL MÁXIMO
         if lstContadores[k] > maxCont:
             maxCont = lstContadores[k]
             indexMax = k
     lstMax = []
-    for l in range(len(lstContadores)): #iteramos para verificar si hay duplicados del máximo
-        if maxCont == lstContadores[l]:
+    for l in range(len(lstContadores)): # ITERAMOS PARA VERIFICAR SI HAY DUPLICADOS DEL MÁXIMO
+        if maxCont == lstContadores[l] and maxCont > 0:
             lstMax.append(lstUnidades[l])
 
+    if maxCont == 0:
+        return "No hay unidades registradas todavía."
 
-    return f"La unidad de medida más utilizada fue: {lstMax}. \nCantidad: {lstContadores[indexMax]}"
+    return f"La unidad de medida más utilizada fue: {lstMax} | Cantidad: {lstContadores[indexMax]}"
 
-
-
-
+def mostrarReporte(codigo, nombre, unidad, stockA, stockM, costo):
+    '''Muestra el reporte estadístico general del inventario con diseño visual mejorado'''
+    print("") # DESPEJA LA CONSOLA
+    print("=" * 80)
+    print(f"{'REPORTE ESTADÍSTICO GENERAL DEL INVENTARIO':^80}")
+    print("=" * 80)
     
-        
+    cantProd = contadorProductos(codigo)
+    print(f"  | CANTIDAD TOTAL DE PRODUCTOS REGISTRADOS: {cantProd}")
+    print("-" * 80)
     
-def ejecutarReporte(codigo, nombre, unidad, stockA, stockM, costo):
-    print("-"*54)
-    print(f"{"#"*5} REPORTE ESTADÍSTICO GENERAL DEL INVENTARIO {"#"*5}")
-    print("-"*54)
-    
-    cantProductos = contadorProductos(codigo)
-
-    if cantProductos == 0:
-        print(f"No se encontraron prodcutos. Verifique su inventrio o ingrese nuevos productos.")
+    if cantProd == 0:
+        print(f"  [!] No se encontraron productos. Verifique su inventario o ingrese nuevos.")
+        print("=" * 80)
     else:
-        print("Cantidad de prodcutos:")
-        print(f"{cantProductos}\n")
-
-        print("Valor total inventario:")
-        print(f"${valorTotalInventario(codigo, stockA, costo):,} \n")
-    
-        print("Promedio costos unitarios:")
-        print(f"${promCostoUnitario(codigo, costo):,}\n")
+        # BLOQUE 1: REPORTE FINANCIERO Y MONETARIO
+        print(f"{'--- RESUMEN FINANCIERO ---':^80}")
+        print(f"  | VALOR TOTAL DEL INVENTARIO : ${valorTotalInventario(codigo, stockA, costo):,}")
+        print(f"  | PROMEDIO COSTOS UNITARIOS  : ${promCostoUnitario(codigo, costo):,}")
+        print("")
         
-        print("Producto con mayor stock:")
+        # BLOQUE 2: ALERTAS DE LOGÍSTICA Y STOCK
+        print(f"{'--- LOGÍSTICA Y NIVELES DE STOCK ---':^80}")
+        print("  [+] PRODUCTO CON MAYOR STOCK:")
         indiceMayor = prodMayorStockA(stockA)
         mostrarProd(codigo, nombre, stockA, indiceMayor)
+        print("")
         
-        print("Producto con menor stock:")
+        print("  [-] PRODUCTO CON MENOR STOCK:")
         indiceMenor = prodMenorStockA(stockA)
         mostrarProd(codigo, nombre, stockA, indiceMenor)
+        print("")
         
-        print("Productos con stock crítico:")
-        print(f"{prodStockCritico(stockA, stockM)}\n")
+        print("  [!] PRODUCTOS CON STOCK CRÍTICO:")
+        print(f"  | Cantidad detectada: {prodStockCritico(stockA, stockM)}")
+        print("")
         
-        print("Unidad(es) de medida más utilizada(s):")
-        print(f"{cantUniMedida(unidad)}\n")
-        
-
-
-
-
+        # BLOQUE 3: MÉTRICAS DE OPERACIÓN
+        print(f"{'--- MÉTRICAS DE OPERACIÓN ---':^80}")
+        print(f"  | {cantUniMedida(unidad)}")
+        print("=" * 80)
