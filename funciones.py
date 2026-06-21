@@ -41,6 +41,18 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): #Matias Lesb
         print("Gracias por usar el programa")
         return 0
 
+def busquedaSecuencial(lista,valor): #Lorenzo Rossi
+    '''Función para verificar si un valor se encuentra o no en una lista.
+        Recibe la lista y el valor buscado.
+        Retorna valor booleano dependiendo del estado del elemento buscado.'''
+    encontrado = False #suponemos que el producto no está en la lista
+    i = 0
+    while i < len(lista) and encontrado == False:
+        if lista[i] == valor:
+            encontrado = True
+        i += 1
+    return encontrado
+
 # FUNCIONES PARA MODIFICAR PRODUCTOS
 def mostrarMenuModif(): #Lorenzo Rossi
     '''Muestra las opciones del menú de modificaciones'''
@@ -58,16 +70,16 @@ def modifNombre(index,nombres): #Lorenzo Rossi
     while nombres[index] == " " or nombres[index] == "":
         print("El nombre no puede quedar vacío")
         nombres[index] = input("Ingrese el nuevo nombre: ")
-        print('nombre modificado')
+        print('Nombre modificado con éxito.')
 
 def modifUnidad(index,unidad): #Lorenzo Rossi
     '''Recibe el index del producto seleccionado y cambia su unidad de medida por la elegido'''
     unidadesValidas = ["kilos", "unidades", "litros", "metros"]
     unidad[index] = input("Ingrese la nueva unidad de medida (unidades, kilos, litros, metros): ")
-    while unidad[index] not in unidadesValidas:
+    while busquedaSecuencial(unidadesValidas,unidad[index]) == False:
         print("Error. Ingrese una unidad válida: kilos, litros, metros o unidades.")
         unidad[index] = input("Ingrese la nueva unidad de medida: ")
-        print('unidad modificada')
+        print('Unidad modificada con éxito.')
 
 def modifStock(index, stockA, stockM, tipoStock): #Lorenzo Rossi
     '''Recibe el index del producto seleccionado y dependendiendo del valor de "tipoStock", que fue precargado anteriormente,
@@ -97,7 +109,7 @@ def modifStock(index, stockA, stockM, tipoStock): #Lorenzo Rossi
                 print(f"Error. Ingresó un valor negativo o un valor mayor al stock {tipoStock}.")
                 cantResta = int(input("Ingrese al cantidad a restar. El stock no puede quedar negativo"))
             stockM[index] -= cantResta
-    print('stock modificado')
+    print('Stock modificado con éxito.')
 
 def modifCosto(index,costo): #Lorenzo Rossi
     '''Recibe el producto elegido y la lista de costos. Realiza las operaciones de suma o resta correspondientes validando que el vallor final no sea 0.'''
@@ -117,13 +129,13 @@ def modifCosto(index,costo): #Lorenzo Rossi
             print("Error. Ingresó un valor negativo o un valor que convierte al costo en 0.")
             cantResta = int(input("Ingrese la cantidad a restar. El valor final no puede terminar en 0"))
         costo[index] -= cantResta
-    print('costo modificado')
+    print('Costo modificado con éxito')
 
 def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lorenzo Rossi
     '''Recibe todas las listas y da a elegir entre las modificaciones establecidas'''
     codigoInput = input("Ingrese el código del producto a modificar: ")
     indexCodigoInput = 0
-    while codigoInput not in codigos:
+    while busquedaSecuencial(codigos,codigoInput) == False:
         print("No se encontró el código seleccionado. Intente nuevamente.")
         codigoInput = input("Ingrese el código del producto a modificar: ")
     for i in range(len(codigos)):
@@ -152,7 +164,7 @@ def modificarProducto(codigos,nombres,unidad,stockActual,stockMinimo,costo): #Lo
 def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lorenzo Rossi
     codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     indexCodigoInput = 0
-    while codigoInput not in codigos:
+    while busquedaSecuencial(codigos,codigoInput) == False:
         print("No se encontró el código seleccionado. Intente nuevamente.")
         codigoInput = input("Ingrese el código del producto que quiere dar de baja: ")
     for i in range(len(codigos)):
@@ -160,10 +172,10 @@ def bajaProducto(codigos,nombres,unidades,stockActual,stockMinimo,costos): #Lore
             indexCodigoInput = i
     print("Producto encontrado")
     print(codigos[indexCodigoInput],nombres[indexCodigoInput],unidades[indexCodigoInput],stockActual[indexCodigoInput],stockMinimo[indexCodigoInput],costos[indexCodigoInput])
-    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ")
+    op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ").lower()
     while op != "y" and op != "n":
         print("Error. Ingresó una respuesta inválida. Responda con y (si lo desea) o n (si no lo desea)")
-        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ")
+        op = input("Está seguro que quiere dar de baja el prodcuto seleccionado (y/n)?: ").lower()
     if op == "n":
         print("Ha seleccionado NO, por lo tanto el producto no fue dado de baja.")
     else:
