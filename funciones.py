@@ -32,6 +32,7 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Les
     # SALIDA
     print("0  | Salir")
     print("=" * 80)
+    ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo)
 
 def ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Lesbegueris
     opcion = int(input("Ingrese una opcion (0 para finalizar): "))
