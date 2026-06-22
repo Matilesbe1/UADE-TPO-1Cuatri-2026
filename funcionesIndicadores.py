@@ -49,7 +49,7 @@ def prodMayorStockA(stockA): #Lorenzo Rossi
 def prodMenorStockA(stockA):
     '''Recibe el stock actual de los prodcutos y encuentra el mínimo.
         Devuelve el índice del mínimo encontrado para después ser mostrado por la dunción mostrarProd().'''
-    indexEncontrado = -1
+    indexEncontrado = 0
     if len(stockA) > 0:
         minStockA = stockA[0]
         indexEncontrado = 0
@@ -101,7 +101,7 @@ def cantUniMedida(unidad): #Lorenzo Rossi
 
     return f"La unidad de medida más utilizada fue: {lstMax} | Cantidad: {lstContadores[indexMax]}"
 
-def mostrarReporte(codigo, nombre, unidad, stockA, stockM, costo):
+def mostrarReporte(codigo, nombre, unidad, stockA, stockM, costo): #Lorenzo Rossi
     '''Muestra el reporte estadístico general del inventario con diseño visual mejorado'''
     print("") # DESPEJA LA CONSOLA
     print("=" * 80)

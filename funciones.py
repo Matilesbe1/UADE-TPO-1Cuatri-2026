@@ -26,20 +26,24 @@ def mostrarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Les
     print("8  | Orden de costo de productos descendente")
     print("9  | Reporte de Stock Critico")
     print("10 | Contador de productos por unidad de medida")
-    print("11 | Estadistica del Inventario")
+    print("11 | Reporte matricial de stock")
+    print("12 | Estadistica del Inventario")
     print("") 
     
     # SALIDA
     print("0  | Salir")
     print("=" * 80)
-    ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo)
+    return ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo)
 
+   
 def ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Lesbegueris
     opcion = int(input("Ingrese una opcion (0 para finalizar): "))
     while opcion < 0 or opcion > 11:
         print("Error. Elija una opcion valida.")
         opcion = int(input("Ingrese una opcion (0 para finalizar): "))
-    if opcion == 1:
+    if opcion != 1 and opcion != 0 and funcionesIndicadores.contadorProductos(codigo) == 0:
+        print("Error. No hay productos caragdos. Ingrese uno primero.")
+    elif opcion == 1:
         altaDeProducto(codigo, nombre, unidad, stockA, stockM, costo)
     elif opcion == 2:
         modificarProducto(codigo, nombre, unidad, stockA, stockM, costo)
@@ -60,6 +64,8 @@ def ejecutarOpciones(codigo, nombre, unidad, stockA, stockM, costo): # Matias Le
     elif opcion == 10:
         contadorMedida(codigo, nombre, unidad, stockA, stockM, costo)
     elif opcion == 11:
+        reporteMatricialXRangoDeStock(codigo, stockA, unidad)
+    elif opcion == 12:
         funcionesIndicadores.mostrarReporte(codigo, nombre, unidad, stockA, stockM, costo)
     elif opcion == 0:
         print("Gracias por usar el programa")
@@ -101,8 +107,9 @@ def modifNombre(index, nombres): # Lorenzo Rossi
 
 def modifUnidad(index, unidad): # Lorenzo Rossi
     '''Recibe el index del producto seleccionado y cambia su unidad de medida por la elegido'''
-    nuevaUnidad = input("Ingrese la nueva unidad de medida (unidades, kilos, litros, metros): ")
-    while nuevaUnidad != "kilos" and nuevaUnidad != "unidades" and nuevaUnidad != "litros" and nuevaUnidad != "metros":
+    unidadesValidas = ["kilos", "unidades", "litros", "metros"]
+    nuevaUnidad = input("Ingrese la nueva unidad de medida (unidades, kilos, litros, metros): ").lower()
+    while busquedaSecuencial(unidadesValidas,nuevaUnidad) == False:
         print("Error. Ingrese una unidad válida: kilos, litros, metros o unidades.")
         nuevaUnidad = input("Ingrese la nueva unidad de medida: ")
     unidad[index] = nuevaUnidad
